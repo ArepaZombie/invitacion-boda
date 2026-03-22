@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Generar preview.jpg</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@1&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #333;
+    }
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button {
+      padding: 0.7rem 1.8rem;
+      background: #c9922a;
+      color: #1a0a04;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+    button:hover { background: #e8b84b; }
+    p {
+      color: #888;
+      font-size: 0.8rem;
+      text-align: center;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="preview" width="1200" height="630"></canvas>
+
+  <div class="controls">
+    <button id="downloadBtn">Descargar preview.jpg</button>
+  </div>
+
+  <p>
+    Abrí este archivo en el navegador, esperá que carguen las fuentes y hacé click en "Descargar".
+    Guardá el archivo como <code>preview.jpg</code> en la raíz del proyecto y subilo a GitHub.
+  </p>
+
+  <script>
+    const canvas  = document.getElementById('preview');
+    const ctx     = canvas.getContext('2d');
+    const W = 1200, H = 630;
+
+    // ── Datos — editá estos valores antes de generar ──────────
+    const NOMBRE_1 = '[NOMBRE_1]';
+    const NOMBRE_2 = '[NOMBRE_2]';
+    const FECHA    = '[FECHA]';
+    const LUGAR    = '[LUGAR]';
+    // ──────────────────────────────────────────────────────────
+
+    const GOLD      = '#c9922a';
+    const GOLD_LT   = '#e8b84b';
+    const GOLD_PALE = '#f0d890';
+    const CREAM     = '#f5ead6';
+    const INK_SOFT  = 'rgba(240,216,144,0.7)';
+
+    function drawPreview() {
+      ctx.clearRect(0, 0, W, H);
+
+      // ── Fondo ─────────────────────────────────────────────
+      const bg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.75);
+      bg.addColorStop(0,   '#2a1208');
+      bg.addColorStop(0.5, '#1c0d06');
+      bg.addColorStop(1,   '#0e0603');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Cálido toque de luz central
+      const glow = ctx.createRadialGradient(W/2, H * 0.42, 0, W/2, H * 0.42, 380);
+      glow.addColorStop(0,   'rgba(140,60,10,0.22)');
+      glow.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, W, H);
+
+      // ── Marco exterior ────────────────────────────────────
+      ctx.strokeStyle = 'rgba(201,146,42,0.75)';
+      ctx.lineWidth = 2.5;
+      ctx.strokeRect(28, 28, W - 56, H - 56);
+
+      // Marco interior
+      ctx.strokeStyle = 'rgba(201,146,42,0.35)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(42, 42, W - 84, H - 84);
+
+      // Esquinas decorativas
+      const cornerSize = 28;
+      const cornerPad  = 50;
+      [
+        [cornerPad, cornerPad],
+        [W - cornerPad, cornerPad],
+        [cornerPad, H - cornerPad],
+        [W - cornerPad, H - cornerPad],
+      ].forEach(([cx, cy], i) => {
+        const dx = i % 2 === 0 ? 1 : -1;
+        const dy = i < 2 ? 1 : -1;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + dx * cornerSize, cy);
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx, cy + dy * cornerSize);
+        ctx.strokeStyle = 'rgba(201,146,42,0.6)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      });
+
+      // ── Estrella ornamental superior ─────────────────────
+      ctx.fillStyle = GOLD;
+      ctx.font = '28px serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('✦', W / 2, H * 0.2);
+
+      // ── "Una historia de amor" ────────────────────────────
+      ctx.font = 'italic 26px "IM Fell English", serif';
+      ctx.fillStyle = INK_SOFT;
+      ctx.textAlign = 'center';
+      ctx.fillText('Una historia de amor', W / 2, H * 0.285);
+
+      // ── Línea decorativa ──────────────────────────────────
+      drawRule(W / 2, H * 0.32, 320);
+
+      // ── Nombres ───────────────────────────────────────────
+      // Auto-escala para que quepan
+      const maxNameWidth = W - 160;
+      let nameFontSize = 82;
+      ctx.font = `700 ${nameFontSize}px "Cinzel Decorative", serif`;
+      while (ctx.measureText(NOMBRE_1).width > maxNameWidth && nameFontSize > 30) {
+        nameFontSize -= 2;
+        ctx.font = `700 ${nameFontSize}px "Cinzel Decorative", serif`;
+      }
+
+      const shadowBlur = 24;
+      ctx.shadowColor   = 'rgba(201,146,42,0.35)';
+      ctx.shadowBlur    = shadowBlur;
+
+      ctx.fillStyle = CREAM;
+      ctx.textAlign = 'center';
+      ctx.fillText(NOMBRE_1, W / 2, H * 0.44);
+
+      // Ampersand
+      ctx.font = `italic ${Math.round(nameFontSize * 0.75)}px "IM Fell English", serif`;
+      ctx.fillStyle = GOLD_LT;
+      ctx.shadowColor = 'rgba(232,184,75,0.4)';
+      ctx.shadowBlur  = 18;
+      ctx.fillText('&', W / 2, H * 0.53);
+
+      ctx.font = `700 ${nameFontSize}px "Cinzel Decorative", serif`;
+      ctx.fillStyle = CREAM;
+      ctx.shadowColor = 'rgba(201,146,42,0.35)';
+      ctx.shadowBlur  = shadowBlur;
+      ctx.fillText(NOMBRE_2, W / 2, H * 0.635);
+
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = 'transparent';
+
+      // ── Línea decorativa ──────────────────────────────────
+      drawRule(W / 2, H * 0.70, 320);
+
+      // ── Fecha y lugar ─────────────────────────────────────
+      ctx.font = '600 24px "Cinzel", serif';
+      ctx.fillStyle = GOLD_PALE;
+      ctx.letterSpacing = '0.1em';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${FECHA}  ·  ${LUGAR}`, W / 2, H * 0.78);
+
+      // ── Estrella ornamental inferior ──────────────────────
+      ctx.font = '22px serif';
+      ctx.fillStyle = 'rgba(201,146,42,0.5)';
+      ctx.fillText('✦', W / 2, H * 0.86);
+    }
+
+    function drawRule(cx, y, halfWidth) {
+      // Gradiente de la línea (desaparece en los extremos)
+      const grad = ctx.createLinearGradient(cx - halfWidth, y, cx + halfWidth, y);
+      grad.addColorStop(0,    'rgba(201,146,42,0)');
+      grad.addColorStop(0.15, 'rgba(201,146,42,0.65)');
+      grad.addColorStop(0.5,  'rgba(201,146,42,0.65)');
+      grad.addColorStop(0.85, 'rgba(201,146,42,0.65)');
+      grad.addColorStop(1,    'rgba(201,146,42,0)');
+
+      ctx.beginPath();
+      ctx.moveTo(cx - halfWidth, y);
+      ctx.lineTo(cx + halfWidth, y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Diamante central
+      ctx.fillStyle = GOLD;
+      ctx.beginPath();
+      ctx.moveTo(cx, y - 4);
+      ctx.lineTo(cx + 4, y);
+      ctx.lineTo(cx, y + 4);
+      ctx.lineTo(cx - 4, y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // ── Iniciar ───────────────────────────────────────────────
+    // Espera a que las fuentes de Google estén listas
+    document.fonts.ready.then(() => {
+      drawPreview();
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'preview.jpg';
+      link.href = canvas.toDataURL('image/jpeg', 0.95);
+      link.click();
+    });
+  </script>
+</body>
+</html>
