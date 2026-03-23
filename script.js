@@ -180,6 +180,15 @@ function openBook() {
       // Distancia desde el top del stage al top de la escena
       const distToTop = stageRect.top - sceneRect.top;
 
+      // Fondo de la escena: transición suave al parchment-dk
+      bookScene.style.backgroundImage = "none";
+      bookScene.classList.add("is-open");
+      gsap.fromTo(
+        bookScene,
+        { backgroundColor: "#0d0804" },
+        { backgroundColor: "#fdf6e8", duration: 1.5, ease: "power2.inOut" },
+      );
+
       gsap.to(bookStage, {
         y: -distToTop,
         scale: Math.min(scaleX, scaleY),
@@ -192,10 +201,12 @@ function openBook() {
     1.5,
   );
 
-  // 9. CTA aparece tras la expansión, scroll se habilita 2s después
+  // 9. CTA aparece, main-content se revela con fade, scroll se habilita después
   tl.call(
     () => {
       scrollCta.classList.add("is-visible");
+      mainContent.classList.add("is-visible");
+      gsap.fromTo(mainContent, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" });
       setTimeout(() => {
         document.documentElement.classList.add("scroll-enabled");
       }, 500);
