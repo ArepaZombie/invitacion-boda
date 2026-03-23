@@ -1,302 +1,357 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[NOMBRE_1] &amp; [NOMBRE_2] — Una Boda Épica</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Evita scroll restoration en mobile — debe estar lo antes posible -->
+    <script>history.scrollRestoration = "manual"; window.scrollTo(0, 0);</script>
+    <title>[NOMBRE_1] &amp; [NOMBRE_2] — Una Boda Épica</title>
 
-  <!-- Open Graph — controla el preview en WhatsApp, IG, etc. -->
-  <meta property="og:title" content="La Boda de [NOMBRE_1] &amp; [NOMBRE_2]" />
-  <meta property="og:description" content="[FECHA] · [LUGAR]" />
-  <meta property="og:image" content="https://arepazombie.github.io/invitacion-boda/preview.jpg" />
-  <meta property="og:url" content="https://arepazombie.github.io/invitacion-boda/" />
-  <meta property="og:type" content="website" />
+    <!-- Open Graph — controla el preview en WhatsApp, IG, etc. -->
+    <meta
+      property="og:title"
+      content="La Boda de [NOMBRE_1] &amp; [NOMBRE_2]"
+    />
+    <meta property="og:description" content="[FECHA] · [LUGAR]" />
+    <meta
+      property="og:image"
+      content="https://arepazombie.github.io/invitacion-boda/preview.jpg"
+    />
+    <meta
+      property="og:url"
+      content="https://arepazombie.github.io/invitacion-boda/"
+    />
+    <meta property="og:type" content="website" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="dust-container" id="dustContainer" aria-hidden="true"></div>
 
-  <div class="noise-overlay" aria-hidden="true"></div>
-  <div class="dust-container" id="dustContainer" aria-hidden="true"></div>
-
-  <!-- ============================================================
+    <!-- ============================================================
        PORTADA — LIBRO 3D
        ============================================================ -->
-  <section class="book-scene" id="bookScene">
-
-    <!-- El libro completo -->
-    <div class="book-stage" id="bookStage">
-
-      <!-- Lomo del libro (siempre visible en el borde izquierdo) -->
-      <div class="book-spine">
-        <span class="spine-text">[NOMBRE_1] &amp; [NOMBRE_2]</span>
-      </div>
-
-      <!-- Página interior — revelada al abrir -->
-      <div class="book-interior" id="bookInterior">
-        <div class="page-corner tl"></div>
-        <div class="page-corner tr"></div>
-        <div class="page-corner bl"></div>
-        <div class="page-corner br"></div>
-        <div class="interior-body">
-          <p class="interior-ornament">&#10022;</p>
-          <h2 class="interior-chapter">Capítulo I</h2>
-          <div class="interior-rule"></div>
-          <p class="interior-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-          <p class="interior-text">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
-          </p>
-          <div class="interior-rule"></div>
-          <button class="scroll-cta" id="scrollCta" aria-label="Ver invitación completa">
-            <span>Seguir leyendo</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-          </button>
+    <section class="book-scene" id="bookScene">
+      <!-- El libro completo -->
+      <div class="book-stage" id="bookStage">
+        <!-- Lomo del libro (siempre visible en el borde izquierdo) -->
+        <div class="book-spine">
+          <span class="spine-text">[NOMBRE_1] &amp; [NOMBRE_2]</span>
         </div>
-      </div>
 
-      <!-- Portada — se abre hacia la izquierda -->
-      <div class="book-cover" id="bookCover">
-
-        <!-- Cara frontal: cubierta de cuero viejo -->
-        <div class="cover-face cover-face--front">
-          <div class="cover-corner tl"></div>
-          <div class="cover-corner tr"></div>
-          <div class="cover-corner bl"></div>
-          <div class="cover-corner br"></div>
-          <div class="cover-worn-edge cover-worn-edge--left"></div>
-          <div class="cover-worn-edge cover-worn-edge--right"></div>
-          <div class="cover-body">
-            <p class="cover-pre">Una historia de amor</p>
-            <div class="cover-title-rule"></div>
-            <h1 class="cover-title">
-              <span class="cover-name">[NOMBRE_1]</span>
-              <span class="cover-amp">&amp;</span>
-              <span class="cover-name">[NOMBRE_2]</span>
-            </h1>
-            <div class="cover-title-rule"></div>
-            <p class="cover-date">[FECHA]</p>
-            <p class="cover-place">[LUGAR]</p>
-            <div class="cover-emblem" aria-hidden="true">&#10022;</div>
+        <!-- Página interior — revelada al abrir -->
+        <div class="book-interior" id="bookInterior">
+          <div class="page-corner tl"></div>
+          <div class="page-corner tr"></div>
+          <div class="page-corner bl"></div>
+          <div class="page-corner br"></div>
+          <div class="interior-body">
+            <p class="interior-ornament">&#10022;</p>
+            <div class="interior-rule"></div>
+            <p class="interior-text">
+              <span class="drop-cap">É</span>rase una vez un mago y una guerrera
+              que después de superar tiempos inciertos, distancias inmensas y
+              dragones sin nombre se preparan para una nueva aventura en tierras
+              lejanas e inexploradas: empezar una nueva travesía juntos.
+            </p>
+            <p class="interior-text">
+              Pero incluso los más grandes viajeros requieren un último acto de
+              magia.
+            </p>
+            <p class="interior-text">
+              Para prepararse para esta aventura, nuestros héroes enviaron
+              mensajes a sus seres queridos, para que les ayuden a crear un
+              hechizo
+            </p>
+            <p class="interior-text">
+              Un hechizo antiguo, no creado por ellos, sino por aquellos que han
+              sido testigos de su historia...
+            </p>
+            <div class="interior-rule"></div>
+            <button
+              class="scroll-cta"
+              id="scrollCta"
+              aria-label="Ver invitación completa"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                aria-hidden="true"
+              >
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+            </button>
           </div>
         </div>
 
-        <!-- Cara trasera: interior de la cubierta (contratapa) -->
-        <div class="cover-face cover-face--back">
-          <div class="cover-back-pattern" aria-hidden="true"></div>
-          <p class="cover-back-verse">
-            <em>"Que comience<br>la historia."</em>
-          </p>
+        <!-- Portada — se abre hacia la izquierda -->
+        <div class="book-cover" id="bookCover">
+          <!-- Cara frontal: cubierta de cuero viejo -->
+          <div class="cover-face cover-face--front">
+            <div class="cover-corner tl"></div>
+            <div class="cover-corner tr"></div>
+            <div class="cover-corner bl"></div>
+            <div class="cover-corner br"></div>
+            <div class="cover-worn-edge cover-worn-edge--left"></div>
+            <div class="cover-worn-edge cover-worn-edge--right"></div>
+            <div class="cover-body">
+              <img
+                class="cover-seal"
+                src="img/seal-golden.png"
+                alt="Sello S &amp; J"
+              />
+            </div>
+          </div>
+
+          <!-- Cara trasera: interior de la cubierta (contratapa) -->
+          <div class="cover-face cover-face--back">
+            <div class="cover-back-pattern" aria-hidden="true"></div>
+            <p class="cover-back-verse">
+              <em>"Que comience<br />la historia."</em>
+            </p>
+          </div>
         </div>
+        <!-- .book-cover -->
+      </div>
+      <!-- .book-stage -->
 
-      </div><!-- .book-cover -->
+      <!-- Sombra en el suelo -->
+      <div class="book-shadow" id="bookShadow"></div>
 
-    </div><!-- .book-stage -->
+    </section>
 
-    <!-- Sombra en el suelo -->
-    <div class="book-shadow" id="bookShadow"></div>
-
-    <!-- Indicador de interacción -->
-    <div class="book-hint" id="bookHint">
-      <span class="hint-label">Abre el libro</span>
-      <svg class="hint-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M12 5v14M5 12l7 7 7-7"/>
-      </svg>
-    </div>
-
-  </section>
-
-  <!-- ============================================================
+    <!-- ============================================================
        CONTENIDO PRINCIPAL
        ============================================================ -->
-  <main class="main-content" id="mainContent">
-
-    <!-- FECHA Y LUGAR -->
-    <section class="section section--fecha" id="secFecha">
-      <div class="section-inner">
-        <div class="section-ornament" aria-hidden="true">&#10022; &#10022; &#10022;</div>
-        <h2 class="section-title reveal-up">El Gran Día</h2>
-
-        <div class="fecha-grid">
-          <div class="fecha-card reveal-up">
-            <div class="fecha-icon">&#128197;</div>
-            <h3 class="fecha-label">Cuando</h3>
-            <p class="fecha-value">[FECHA]</p>
-            <p class="fecha-detail">Las campanas sonarán al mediodía</p>
+    <main class="main-content" id="mainContent">
+      <!-- FECHA Y LUGAR -->
+      <section class="section section--fecha" id="secFecha">
+        <div class="section-inner">
+          <div class="section-ornament" aria-hidden="true">
+            &#10022; &#10022; &#10022;
           </div>
-          <div class="fecha-card fecha-card--main reveal-up">
-            <div class="fecha-seal">
-              <div class="seal-ring"></div>
-              <div class="seal-text">
-                <span>[NOMBRE_1]</span>
-                <span class="seal-amp">&amp;</span>
-                <span>[NOMBRE_2]</span>
+          <h2 class="section-title reveal-up">El Gran Día</h2>
+
+          <div class="fecha-grid">
+            <div class="fecha-card reveal-up">
+              <div class="fecha-icon">&#128197;</div>
+              <h3 class="fecha-label">Cuando</h3>
+              <p class="fecha-value">[FECHA]</p>
+              <p class="fecha-detail">Las campanas sonarán al mediodía</p>
+            </div>
+            <div class="fecha-card fecha-card--main reveal-up">
+              <div class="fecha-seal">
+                <div class="seal-ring"></div>
+                <div class="seal-text">
+                  <span>[NOMBRE_1]</span>
+                  <span class="seal-amp">&amp;</span>
+                  <span>[NOMBRE_2]</span>
+                </div>
+              </div>
+            </div>
+            <div class="fecha-card reveal-up">
+              <div class="fecha-icon">&#127963;</div>
+              <h3 class="fecha-label">Donde</h3>
+              <p class="fecha-value">[LUGAR]</p>
+              <p class="fecha-detail">En las tierras del festín eterno</p>
+            </div>
+          </div>
+
+          <div class="modo-info modo-info--presencial" id="infoPresencial">
+            <div class="modo-banner">
+              <span class="modo-icon">&#9876;</span>
+              <div>
+                <strong>Caballero / Dama de honor presencial</strong>
+                <p>
+                  Vuestra presencia ilumina nuestro festín. Os aguardamos con el
+                  banquete listo y los cálices llenos.
+                </p>
+                <p class="modo-detail">
+                  Llegad con tiempo — las puertas del castillo abren una hora
+                  antes de la ceremonia.
+                </p>
               </div>
             </div>
           </div>
-          <div class="fecha-card reveal-up">
-            <div class="fecha-icon">&#127963;</div>
-            <h3 class="fecha-label">Donde</h3>
-            <p class="fecha-value">[LUGAR]</p>
-            <p class="fecha-detail">En las tierras del festín eterno</p>
-          </div>
-        </div>
 
-        <div class="modo-info modo-info--presencial" id="infoPresencial">
-          <div class="modo-banner">
-            <span class="modo-icon">&#9876;</span>
-            <div>
-              <strong>Caballero / Dama de honor presencial</strong>
-              <p>Vuestra presencia ilumina nuestro festín. Os aguardamos con el banquete listo y los cálices llenos.</p>
-              <p class="modo-detail">Llegad con tiempo — las puertas del castillo abren una hora antes de la ceremonia.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="modo-info modo-info--live" id="infoLive">
-          <div class="modo-banner">
-            <span class="modo-icon">&#128255;</span>
-            <div>
-              <strong>Heraldo del reino digital</strong>
-              <p>Aunque los caminos sean largos, os llevaremos la celebración a vuestro hogar por los éter-ondas.</p>
-              <p class="modo-detail">El enlace del stream aparecerá aquí próximamente. Preparad vuestro cáliz favorito.</p>
+          <div class="modo-info modo-info--live" id="infoLive">
+            <div class="modo-banner">
+              <span class="modo-icon">&#128255;</span>
+              <div>
+                <strong>Heraldo del reino digital</strong>
+                <p>
+                  Aunque los caminos sean largos, os llevaremos la celebración a
+                  vuestro hogar por los éter-ondas.
+                </p>
+                <p class="modo-detail">
+                  El enlace del stream aparecerá aquí próximamente. Preparad
+                  vuestro cáliz favorito.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ITINERARIO -->
-    <section class="section section--itinerario" id="secItinerario">
-      <div class="section-inner">
-        <div class="section-ornament" aria-hidden="true">&#10022; &#10022; &#10022;</div>
-        <h2 class="section-title reveal-up">El Pergamino del Día</h2>
-        <p class="section-subtitle reveal-up">Así está escrito en los libros del tiempo</p>
+      <!-- ITINERARIO -->
+      <section class="section section--itinerario" id="secItinerario">
+        <div class="section-inner">
+          <div class="section-ornament" aria-hidden="true">
+            &#10022; &#10022; &#10022;
+          </div>
+          <h2 class="section-title reveal-up">El Pergamino del Día</h2>
+          <p class="section-subtitle reveal-up">
+            Así está escrito en los libros del tiempo
+          </p>
 
-        <div class="timeline">
-          <div class="timeline-item reveal-left">
-            <div class="timeline-time">00:00</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-event">La Congregación</h3>
-              <p class="timeline-desc">Los invitados van llegando. El aire huele a flores y expectativa.</p>
+          <div class="timeline">
+            <div class="timeline-item reveal-left">
+              <div class="timeline-time">00:00</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="timeline-event">La Congregación</h3>
+                <p class="timeline-desc">
+                  Los invitados van llegando. El aire huele a flores y
+                  expectativa.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="timeline-item reveal-right">
-            <div class="timeline-time">00:00</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-event">La Ceremonia</h3>
-              <p class="timeline-desc">Los votos son pronunciados ante los dioses del bosque y los testigos reunidos.</p>
-              <span class="timeline-tag timeline-tag--presencial">Solo presencial</span>
-              <span class="timeline-tag timeline-tag--live">Disponible en stream</span>
+            <div class="timeline-item reveal-right">
+              <div class="timeline-time">00:00</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="timeline-event">La Ceremonia</h3>
+                <p class="timeline-desc">
+                  Los votos son pronunciados ante los dioses del bosque y los
+                  testigos reunidos.
+                </p>
+                <span class="timeline-tag timeline-tag--presencial"
+                  >Solo presencial</span
+                >
+                <span class="timeline-tag timeline-tag--live"
+                  >Disponible en stream</span
+                >
+              </div>
             </div>
-          </div>
-          <div class="timeline-item reveal-left">
-            <div class="timeline-time">00:00</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-event">El Cóctel</h3>
-              <p class="timeline-desc">Pociones de toda clase. El bardo toca sus primeras melodías.</p>
-              <span class="timeline-tag timeline-tag--presencial">Solo presencial</span>
+            <div class="timeline-item reveal-left">
+              <div class="timeline-time">00:00</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="timeline-event">El Cóctel</h3>
+                <p class="timeline-desc">
+                  Pociones de toda clase. El bardo toca sus primeras melodías.
+                </p>
+                <span class="timeline-tag timeline-tag--presencial"
+                  >Solo presencial</span
+                >
+              </div>
             </div>
-          </div>
-          <div class="timeline-item reveal-right">
-            <div class="timeline-time">00:00</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-event">El Gran Banquete</h3>
-              <p class="timeline-desc">Las mesas se doblan bajo el peso de los manjares. Los brindis comienzan.</p>
-              <span class="timeline-tag timeline-tag--presencial">Solo presencial</span>
+            <div class="timeline-item reveal-right">
+              <div class="timeline-time">00:00</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="timeline-event">El Gran Banquete</h3>
+                <p class="timeline-desc">
+                  Las mesas se doblan bajo el peso de los manjares. Los brindis
+                  comienzan.
+                </p>
+                <span class="timeline-tag timeline-tag--presencial"
+                  >Solo presencial</span
+                >
+              </div>
             </div>
-          </div>
-          <div class="timeline-item reveal-left">
-            <div class="timeline-time">00:00</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h3 class="timeline-event">La Danza Eterna</h3>
-              <p class="timeline-desc">El suelo vibra con el baile. La noche es joven y la música, ancestral.</p>
-              <span class="timeline-tag timeline-tag--presencial">Solo presencial</span>
+            <div class="timeline-item reveal-left">
+              <div class="timeline-time">00:00</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="timeline-event">La Danza Eterna</h3>
+                <p class="timeline-desc">
+                  El suelo vibra con el baile. La noche es joven y la música,
+                  ancestral.
+                </p>
+                <span class="timeline-tag timeline-tag--presencial"
+                  >Solo presencial</span
+                >
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- GALERÍA -->
-    <section class="section section--galeria" id="secGaleria">
-      <div class="section-inner">
-        <div class="section-ornament" aria-hidden="true">&#10022; &#10022; &#10022;</div>
-        <h2 class="section-title reveal-up">Las Crónicas Ilustradas</h2>
-        <p class="section-subtitle reveal-up">Retratos de nuestra aventura</p>
+      <!-- GALERÍA -->
+      <section class="section section--galeria" id="secGaleria">
+        <div class="section-inner">
+          <div class="section-ornament" aria-hidden="true">
+            &#10022; &#10022; &#10022;
+          </div>
+          <h2 class="section-title reveal-up">Las Crónicas Ilustradas</h2>
+          <p class="section-subtitle reveal-up">Retratos de nuestra aventura</p>
 
-        <div class="gallery-grid">
-          <div class="gallery-item gallery-item--large reveal-up">
-            <div class="gallery-placeholder">
-              <div class="placeholder-frame"></div>
-              <span class="placeholder-label">Retrato de los héroes</span>
+          <div class="gallery-grid">
+            <div class="gallery-item gallery-item--large reveal-up">
+              <div class="gallery-placeholder">
+                <div class="placeholder-frame"></div>
+                <span class="placeholder-label">Retrato de los héroes</span>
+              </div>
             </div>
-          </div>
-          <div class="gallery-item reveal-up">
-            <div class="gallery-placeholder">
-              <div class="placeholder-frame"></div>
-              <span class="placeholder-label">El primer encuentro</span>
+            <div class="gallery-item reveal-up">
+              <div class="gallery-placeholder">
+                <div class="placeholder-frame"></div>
+                <span class="placeholder-label">El primer encuentro</span>
+              </div>
             </div>
-          </div>
-          <div class="gallery-item reveal-up">
-            <div class="gallery-placeholder">
-              <div class="placeholder-frame"></div>
-              <span class="placeholder-label">La aventura comienza</span>
+            <div class="gallery-item reveal-up">
+              <div class="gallery-placeholder">
+                <div class="placeholder-frame"></div>
+                <span class="placeholder-label">La aventura comienza</span>
+              </div>
             </div>
-          </div>
-          <div class="gallery-item reveal-up">
-            <div class="gallery-placeholder">
-              <div class="placeholder-frame"></div>
-              <span class="placeholder-label">Tierras lejanas</span>
+            <div class="gallery-item reveal-up">
+              <div class="gallery-placeholder">
+                <div class="placeholder-frame"></div>
+                <span class="placeholder-label">Tierras lejanas</span>
+              </div>
             </div>
-          </div>
-          <div class="gallery-item reveal-up">
-            <div class="gallery-placeholder">
-              <div class="placeholder-frame"></div>
-              <span class="placeholder-label">El anillo hallado</span>
+            <div class="gallery-item reveal-up">
+              <div class="gallery-placeholder">
+                <div class="placeholder-frame"></div>
+                <span class="placeholder-label">El anillo hallado</span>
+              </div>
             </div>
-          </div>
-          <div class="gallery-item gallery-item--wide reveal-up">
-            <div class="gallery-placeholder">
-              <div class="placeholder-frame"></div>
-              <span class="placeholder-label">La compañía reunida</span>
+            <div class="gallery-item gallery-item--wide reveal-up">
+              <div class="gallery-placeholder">
+                <div class="placeholder-frame"></div>
+                <span class="placeholder-label">La compañía reunida</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <footer class="site-footer">
-      <div class="footer-ornament" aria-hidden="true">
-        <div class="footer-line"></div>
-        <span>&#10022;</span>
-        <div class="footer-line"></div>
-      </div>
-      <p class="footer-text"><em>[NOMBRE_1] &amp; [NOMBRE_2] — [FECHA]</em></p>
-      <p class="footer-subtext">Pergamino forjado con amor y magia antigua</p>
-    </footer>
+      <footer class="site-footer">
+        <div class="footer-ornament" aria-hidden="true">
+          <div class="footer-line"></div>
+          <span>&#10022;</span>
+          <div class="footer-line"></div>
+        </div>
+        <p class="footer-text">
+          <em>[NOMBRE_1] &amp; [NOMBRE_2] — [FECHA]</em>
+        </p>
+        <p class="footer-subtext">Pergamino forjado con amor y magia antigua</p>
+      </footer>
+    </main>
 
-  </main>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="script.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>

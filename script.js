@@ -4,6 +4,10 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Evita que el browser mobile restaure la posición de scroll al recargar
+history.scrollRestoration = "manual";
+window.scrollTo(0, 0);
+
 // ── Query params ──────────────────────────────────────────────
 const params = new URLSearchParams(window.location.search);
 const modo = params.get("modo");
@@ -20,7 +24,6 @@ if (modo === "presencial") {
 const bookScene = document.getElementById("bookScene");
 const bookCover = document.getElementById("bookCover");
 const bookShadow = document.getElementById("bookShadow");
-const bookHint = document.getElementById("bookHint");
 const bookStage = document.getElementById("bookStage");
 const mainContent = document.getElementById("mainContent");
 const scrollCta = document.getElementById("scrollCta");
@@ -57,12 +60,6 @@ function spawnDust(x, y, burst = false) {
   );
 }
 
-function burstDust(x, y, n = 28) {
-  for (let i = 0; i < n; i++) {
-    setTimeout(() => spawnDust(x, y, true), i * 15);
-  }
-}
-
 // Ambient dust while book is closed
 const ambientInterval = setInterval(() => {
   spawnDust(
@@ -70,15 +67,6 @@ const ambientInterval = setInterval(() => {
     gsap.utils.random(window.innerHeight * 0.2, window.innerHeight * 0.9),
   );
 }, 700);
-
-// ── Hint pulse ────────────────────────────────────────────────
-gsap.to(bookHint, {
-  opacity: 0.35,
-  duration: 2,
-  repeat: -1,
-  yoyo: true,
-  ease: "sine.inOut",
-});
 
 // ── Gentle hint nudge after 3s of inaction ────────────────────
 setTimeout(() => {
@@ -100,18 +88,9 @@ function openBook() {
 
   clearInterval(ambientInterval);
 
-  // Dust burst at center of book
-  const r = bookStage.getBoundingClientRect();
-  const cx = r.left + r.width / 2;
-  const cy = r.top + r.height / 2;
-  burstDust(cx, cy, 32);
-
   const tl = gsap.timeline();
 
-  // 1. Hint out
-  tl.to(bookHint, { opacity: 0, duration: 0.25, ease: "power2.in" }, 0);
-
-  // 2. El libro se levanta de la mesa hacia la cámara
+  // 1. El libro se levanta de la mesa hacia la cámara
   tl.to(
     bookStage,
     {
@@ -147,8 +126,12 @@ function openBook() {
     0.5,
   );
 
-  // 4. Mid-flip extra dust burst
-  tl.call(() => burstDust(cx, cy, 18), null, 0.75);
+  // 4. Lomo y sombra se desvanecen — solo debe verse el interior
+  tl.to(
+    document.querySelector(".book-spine"),
+    { opacity: 0, duration: 0.3 },
+    0.5,
+  );
 
   // 5. Shadow stretches as cover opens, then fades
   tl.to(
@@ -184,13 +167,41 @@ function openBook() {
     1.1,
   );
 
-  // 7. Mostrar CTA para seguir leyendo
+  // 7. Sombra se desvanece mientras la portada termina de girar
+  tl.to(bookShadow, { opacity: 0, duration: 0.4 }, 1.5);
+
+  // 8. Interior llena toda la escena — sube al top y escala
+  tl.call(
+    () => {
+      const sceneRect = bookScene.getBoundingClientRect();
+      const stageRect = bookStage.getBoundingClientRect();
+      const scaleX = sceneRect.width / stageRect.width;
+      const scaleY = sceneRect.height / stageRect.height;
+      // Distancia desde el top del stage al top de la escena
+      const distToTop = stageRect.top - sceneRect.top;
+
+      gsap.to(bookStage, {
+        y: -distToTop,
+        scale: Math.min(scaleX, scaleY),
+        transformOrigin: "top center",
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+    },
+    null,
+    1.5,
+  );
+
+  // 9. CTA aparece tras la expansión, scroll se habilita 2s después
   tl.call(
     () => {
       scrollCta.classList.add("is-visible");
+      setTimeout(() => {
+        document.documentElement.classList.add("scroll-enabled");
+      }, 500);
     },
     null,
-    1.4,
+    2.8,
   );
 
   // El libro queda abierto en la escena.
@@ -198,14 +209,26 @@ function openBook() {
   // y volver arriba para ver el libro abierto.
 }
 
-// Trigger: click on scene or first scroll
+// Trigger: click o swipe hacia arriba
 bookScene.addEventListener("click", openBook);
 
-window.addEventListener(
-  "scroll",
-  function onFirstScroll() {
-    openBook();
-    window.removeEventListener("scroll", onFirstScroll);
+let touchStartX = 0;
+let touchStartY = 0;
+bookScene.addEventListener(
+  "touchstart",
+  (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  },
+  { passive: true },
+);
+
+bookScene.addEventListener(
+  "touchend",
+  (e) => {
+    const dx = Math.abs(touchStartX - e.changedTouches[0].clientX);
+    const dy = Math.abs(touchStartY - e.changedTouches[0].clientY);
+    if (Math.max(dx, dy) > 30) openBook();
   },
   { passive: true },
 );
@@ -307,10 +330,6 @@ function initScrollAnimations() {
           trigger: seal,
           start: "top 85%",
           once: true,
-          onEnter: () => {
-            const sr = seal.getBoundingClientRect();
-            burstDust(sr.left + sr.width / 2, sr.top + sr.height / 2, 22);
-          },
         },
       },
     );
