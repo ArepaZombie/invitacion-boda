@@ -4,19 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Evita scroll restoration en mobile — debe estar lo antes posible -->
-    <script>history.scrollRestoration = "manual"; window.scrollTo(0, 0);</script>
-    <title>[NOMBRE_1] &amp; [NOMBRE_2] — Una Boda Épica</title>
+    <script>
+      history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    </script>
+    <title>Érase una vez... Jorge & Sharon</title>
 
     <!-- Open Graph — controla el preview en WhatsApp, IG, etc. -->
     <meta
       property="og:title"
-      content="La Boda de [NOMBRE_1] &amp; [NOMBRE_2]"
+      content="Érase una vez... Jorge & Sharon"
     />
-    <meta property="og:description" content="[FECHA] · [LUGAR]" />
+    <meta property="og:description" content="4 de Julio · 3:30 PM" />
     <meta
       property="og:image"
-      content="https://arepazombie.github.io/invitacion-boda/preview.jpg"
+      content="https://arepazombie.github.io/invitacion-boda/img/preview.png"
     />
+    <link rel="icon" type="image/png" href="img/seal-golden.png" />
     <meta
       property="og:url"
       content="https://arepazombie.github.io/invitacion-boda/"
@@ -26,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bilbo&family=Baskervville:ital@0;1&family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -43,7 +47,7 @@
       <div class="book-stage" id="bookStage">
         <!-- Lomo del libro (siempre visible en el borde izquierdo) -->
         <div class="book-spine">
-          <span class="spine-text">[NOMBRE_1] &amp; [NOMBRE_2]</span>
+          <span class="spine-text">JORGE & SHARON</span>
         </div>
 
         <!-- Página interior — revelada al abrir -->
@@ -126,14 +130,12 @@
 
       <!-- Sombra en el suelo -->
       <div class="book-shadow" id="bookShadow"></div>
-
     </section>
 
     <!-- ============================================================
        CONTENIDO PRINCIPAL
        ============================================================ -->
     <main class="main-content" id="mainContent">
-
       <!-- Degradé de transición entre el libro y el contenido -->
       <div class="scene-transition" aria-hidden="true"></div>
 
@@ -143,27 +145,31 @@
           <p class="inv-pre reveal-up">Los aventureros:</p>
 
           <h2 class="inv-nombres reveal-up">
-            Jorge el Sabio<br />y Sharon la Valiente
+            Jorge</br>
+            <span class="titulos">"El Mago"</span></br>
+            <span class="seal-amp">&amp;</span></br>
+            Sharon </br>
+            <span class="titulos">"La Guerrera"</span></br>
           </h2>
 
           <p class="inv-cuerpo reveal-up">
-            convocan a un círculo íntimo<br />
-            de almas queridas y elegidas<br />
-            para presenciar el instante<br />
-            en que iniciará la unión de estos<br />
-            grandes aventureros.
+            Convocan a un círculo íntimo
+            de almas queridas y elegidas
+            para presenciar el instante
+            en que iniciará la unión de estos
+            grandes héroes.
           </p>
 
           <div class="inv-rule" aria-hidden="true"></div>
 
           <p class="inv-cuando-pre reveal-up">
-            Este evento tendrá lugar cuando<br />cierre la Luna del Ciervo
+            Nos reuniremos cuando la Luna del Ciervo empiece a menguar
           </p>
 
-          <p class="inv-fecha reveal-up">4 de Julio del 2026</p>
+          <p class="inv-fecha reveal-up">4 de Julio 2026</p>
 
           <p class="inv-hora-pre reveal-up">
-            a las 3 horas después de que el sol esté en su punto más alto:
+            Tres horas después de que el sol esté en su punto más alto
           </p>
 
           <p class="inv-hora reveal-up">3:30 PM</p>
@@ -171,7 +177,7 @@
           <div class="inv-rule" aria-hidden="true"></div>
 
           <p class="inv-cierre reveal-up">
-            Su presencia, sea en cuerpo o a través de un portal,<br />
+            Su presencia, sea en cuerpo o a través de un portal,
             será esencial para la pareja.
           </p>
         </div>

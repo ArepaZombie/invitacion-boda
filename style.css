@@ -17,6 +17,7 @@
   --font-display: 'Baskervville', serif;
   --font-heading: 'Cinzel', serif;
   --font-body:    'IM Fell English', serif;
+  --font-bilbo: 'Bilbo', 'cursive';
 
   /* Book dimensions */
   --book-w:     min(82vw, 360px);
@@ -85,7 +86,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle,rgba(237, 203, 147, 1) 0%, rgba(172, 129, 80, 1) 8%, rgba(94, 41, 0, 1) 56%, rgba(48, 20, 0, 1) 86%);
+  background: radial-gradient(circle, hsla(308, 42%, 66%, 1) 0%, hsla(308, 22%, 52%, 1) 0%, hsla(281, 83%, 19%, 1) 30%, hsla(282, 67%, 11%, 1) 56%, hsla(283, 84%, 5%, 1) 77%, hsla(0, 0%, 0%, 1) 100%);
   overflow: clip;
   cursor: pointer;
   /* Perspectiva para la inclinación del libro — punto de fuga abajo = cámara al pie */
@@ -510,10 +511,10 @@ body {
   background-image: url("img/old-paper.jpg");
   background-size: cover;
   background-position: center;
-  border: 2.5px solid #111;
+  border: 2.5px solid var(--color-ink-soft);
   box-shadow:
-    5px 5px 0 rgba(0, 0, 0, 0.55),
-    8px 8px 16px rgba(0, 0, 0, 0.25);
+    5px 5px 0 var(--color-ink),
+    8px 8px 16px var(--color-ink);
 }
 
 .inv-pre {
@@ -525,19 +526,23 @@ body {
 }
 
 .inv-nombres {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: clamp(1.5rem, 5vw, 2.2rem);
   color: var(--color-ink);
-  line-height: 1.25;
+  line-height: 0.5;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+
+  .titulos {
+    font-size: clamp(0.5rem, 2.5vw, 1.2rem);
+  }
 }
 
 .inv-cuerpo {
   font-family: var(--font-body);
   font-size: clamp(0.88rem, 2.5vw, 1rem);
   color: var(--color-ink-soft);
-  line-height: 1.9;
+  line-height: 1.3;
 }
 
 .inv-rule {
@@ -547,42 +552,20 @@ body {
   opacity: 0.35;
 }
 
-.inv-cuando-pre {
+.inv-cuando-pre, .inv-hora-pre, .inv-cierre {
   font-family: var(--font-body);
   font-style: italic;
   font-size: 0.9rem;
   color: var(--color-ink-soft);
-  line-height: 1.7;
+  line-height: 1.2;
 }
 
-.inv-fecha {
+.inv-fecha, .inv-hora {
   font-family: var(--font-heading);
   font-size: clamp(1.4rem, 5vw, 2rem);
   color: var(--color-ink);
   letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.inv-hora-pre {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  color: var(--color-ink-soft);
-  font-style: italic;
-}
-
-.inv-hora {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 6vw, 2.8rem);
-  color: var(--color-ink);
-  letter-spacing: 0.15em;
-}
-
-.inv-cierre {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: 0.88rem;
-  color: var(--color-ink-soft);
-  line-height: 1.8;
+  font-weight: bold;
 }
 
 /* ============================================================
@@ -723,9 +706,9 @@ body {
 .seal-amp {
   font-family: var(--font-body);
   font-style: italic;
-  font-size: 0.85rem;
-  color: var(--color-gold-lt);
-  line-height: 1;
+  font-size: 2rem;
+  color: var(--color-gold);
+  line-height: 2 !important;
 }
 
 .modo-info { display: none; margin-top: 2rem; }
