@@ -11,10 +11,7 @@
     <title>Érase una vez... Jorge & Sharon</title>
 
     <!-- Open Graph — controla el preview en WhatsApp, IG, etc. -->
-    <meta
-      property="og:title"
-      content="Érase una vez... Jorge & Sharon"
-    />
+    <meta property="og:title" content="Érase una vez... Jorge & Sharon" />
     <meta property="og:description" content="4 de Julio · 3:30 PM" />
     <meta
       property="og:image"
@@ -43,6 +40,7 @@
        PORTADA — LIBRO 3D
        ============================================================ -->
     <section class="book-scene" id="bookScene">
+      <div class="scene-gradient" id="sceneGradient" aria-hidden="true"></div>
       <!-- El libro completo -->
       <div class="book-stage" id="bookStage">
         <!-- Lomo del libro (siempre visible en el borde izquierdo) -->
@@ -140,24 +138,22 @@
       <div class="scene-transition" aria-hidden="true"></div>
 
       <!-- INVITACIÓN -->
-      <section class="section section--invitacion" id="secInvitacion">
+      <section class="section section-invitacion" id="secInvitacion">
         <div class="inv-inner">
           <p class="inv-pre reveal-up">Los aventureros:</p>
 
           <h2 class="inv-nombres reveal-up">
-            Jorge</br>
-            <span class="titulos">"El Mago"</span></br>
-            <span class="seal-amp">&amp;</span></br>
-            Sharon </br>
-            <span class="titulos">"La Guerrera"</span></br>
+            Jorge<br />
+            <span class="titulos">"El Mago"</span><br />
+            <span class="seal-amp">&amp;</span><br />
+            Sharon<br />
+            <span class="titulos">"La Guerrera"</span>
           </h2>
 
           <p class="inv-cuerpo reveal-up">
-            Convocan a un círculo íntimo
-            de almas queridas y elegidas
-            para presenciar el instante
-            en que iniciará la unión de estos
-            grandes héroes.
+            Convocan a un círculo íntimo de almas queridas y elegidas para
+            presenciar el instante en que iniciará la unión de estos grandes
+            héroes.
           </p>
 
           <div class="inv-rule" aria-hidden="true"></div>
@@ -177,224 +173,139 @@
           <div class="inv-rule" aria-hidden="true"></div>
 
           <p class="inv-cierre reveal-up">
-            Su presencia, sea en cuerpo o a través de un portal,
-            será esencial para la pareja.
+            Su presencia, sea en cuerpo o a través de un portal, será esencial
+            para la pareja.
           </p>
         </div>
       </section>
 
-      <!-- FECHA Y LUGAR -->
-      <section class="section section--fecha" id="secFecha">
-        <div class="section-inner">
-          <div class="section-ornament" aria-hidden="true">
-            &#10022; &#10022; &#10022;
-          </div>
-          <h2 class="section-title reveal-up">El Gran Día</h2>
+      <div class="ornament" aria-hidden="true">
+        <div class="ornament-line"></div>
+        <span>&#10022;</span>
+        <div class="ornament-line"></div>
+      </div>
 
-          <div class="fecha-grid">
-            <div class="fecha-card reveal-up">
-              <div class="fecha-icon">&#128197;</div>
-              <h3 class="fecha-label">Cuando</h3>
-              <p class="fecha-value">[FECHA]</p>
-              <p class="fecha-detail">Las campanas sonarán al mediodía</p>
-            </div>
-            <div class="fecha-card fecha-card--main reveal-up">
-              <div class="fecha-seal">
-                <div class="seal-ring"></div>
-                <div class="seal-text">
-                  <span>[NOMBRE_1]</span>
-                  <span class="seal-amp">&amp;</span>
-                  <span>[NOMBRE_2]</span>
-                </div>
-              </div>
-            </div>
-            <div class="fecha-card reveal-up">
-              <div class="fecha-icon">&#127963;</div>
-              <h3 class="fecha-label">Donde</h3>
-              <p class="fecha-value">[LUGAR]</p>
-              <p class="fecha-detail">En las tierras del festín eterno</p>
-            </div>
+      <!-- CONTADOR -->
+      <section class="section section-countdown">
+        <h2>Faltan...</h2>
+        <div class="countdown reveal-up" id="countdown">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-days">--</span>
+            <span class="countdown-label">días</span>
           </div>
-
-          <div class="modo-info modo-info--presencial" id="infoPresencial">
-            <div class="modo-banner">
-              <span class="modo-icon">&#9876;</span>
-              <div>
-                <strong>Caballero / Dama de honor presencial</strong>
-                <p>
-                  Vuestra presencia ilumina nuestro festín. Os aguardamos con el
-                  banquete listo y los cálices llenos.
-                </p>
-                <p class="modo-detail">
-                  Llegad con tiempo — las puertas del castillo abren una hora
-                  antes de la ceremonia.
-                </p>
-              </div>
-            </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-hours">--</span>
+            <span class="countdown-label">horas</span>
           </div>
-
-          <div class="modo-info modo-info--live" id="infoLive">
-            <div class="modo-banner">
-              <span class="modo-icon">&#128255;</span>
-              <div>
-                <strong>Heraldo del reino digital</strong>
-                <p>
-                  Aunque los caminos sean largos, os llevaremos la celebración a
-                  vuestro hogar por los éter-ondas.
-                </p>
-                <p class="modo-detail">
-                  El enlace del stream aparecerá aquí próximamente. Preparad
-                  vuestro cáliz favorito.
-                </p>
-              </div>
-            </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-mins">--</span>
+            <span class="countdown-label">minutos</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-secs">--</span>
+            <span class="countdown-label">segundos</span>
           </div>
         </div>
       </section>
 
-      <!-- ITINERARIO -->
-      <section class="section section--itinerario" id="secItinerario">
-        <div class="section-inner">
-          <div class="section-ornament" aria-hidden="true">
-            &#10022; &#10022; &#10022;
-          </div>
-          <h2 class="section-title reveal-up">El Pergamino del Día</h2>
-          <p class="section-subtitle reveal-up">
-            Así está escrito en los libros del tiempo
-          </p>
+      <div class="ornament" aria-hidden="true">
+        <div class="ornament-line"></div>
+        <span>&#10022;</span>
+        <div class="ornament-line"></div>
+      </div>
 
-          <div class="timeline">
-            <div class="timeline-item reveal-left">
-              <div class="timeline-time">00:00</div>
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3 class="timeline-event">La Congregación</h3>
-                <p class="timeline-desc">
-                  Los invitados van llegando. El aire huele a flores y
-                  expectativa.
-                </p>
-              </div>
-            </div>
-            <div class="timeline-item reveal-right">
-              <div class="timeline-time">00:00</div>
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3 class="timeline-event">La Ceremonia</h3>
-                <p class="timeline-desc">
-                  Los votos son pronunciados ante los dioses del bosque y los
-                  testigos reunidos.
-                </p>
-                <span class="timeline-tag timeline-tag--presencial"
-                  >Solo presencial</span
-                >
-                <span class="timeline-tag timeline-tag--live"
-                  >Disponible en stream</span
-                >
-              </div>
-            </div>
-            <div class="timeline-item reveal-left">
-              <div class="timeline-time">00:00</div>
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3 class="timeline-event">El Cóctel</h3>
-                <p class="timeline-desc">
-                  Pociones de toda clase. El bardo toca sus primeras melodías.
-                </p>
-                <span class="timeline-tag timeline-tag--presencial"
-                  >Solo presencial</span
-                >
-              </div>
-            </div>
-            <div class="timeline-item reveal-right">
-              <div class="timeline-time">00:00</div>
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3 class="timeline-event">El Gran Banquete</h3>
-                <p class="timeline-desc">
-                  Las mesas se doblan bajo el peso de los manjares. Los brindis
-                  comienzan.
-                </p>
-                <span class="timeline-tag timeline-tag--presencial"
-                  >Solo presencial</span
-                >
-              </div>
-            </div>
-            <div class="timeline-item reveal-left">
-              <div class="timeline-time">00:00</div>
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3 class="timeline-event">La Danza Eterna</h3>
-                <p class="timeline-desc">
-                  El suelo vibra con el baile. La noche es joven y la música,
-                  ancestral.
-                </p>
-                <span class="timeline-tag timeline-tag--presencial"
-                  >Solo presencial</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- /// SECCIONES INDEPENDIENTES /// -->
+
+      <!-- Presencial -->
+      <section class="section section-presencial">
+        <h2 class="reveal-up">
+          Para quienes nos acompañarán <br />
+          en cuerpo y alma
+        </h2>
+        <p class="reveal-up">
+          En honor a la naturaleza del evento y para preservar su atmósfera, la
+          velada estará dedicada <strong>exclusivamente a adultos</strong>.
+          (Agradecemos mucho su comprensión en este detalle.)
+        </p>
+        <p class="reveal-up">
+          Código de vestimenta: Formal, con tintes de otra era… un susurro
+          medieval, una chispa de fantasía.
+        </p>
+        <p class="reveal-up">AGREGAR PALETA DE COLORES</p>
+        <p class="reveal-up">
+          Presiona este sello y mágicamente se te concederá la entrada a un
+          círculo secreto que será de vital importancia para el evento.
+        </p>
+        <a
+          class="wpp-group-button reveal-up"
+          href="https://chat.whatsapp.com/JX7kyVME7lC5xRNwYoBEdm"
+          >Unirse al grupo ⚜</a
+        >
       </section>
 
-      <!-- GALERÍA -->
-      <section class="section section--galeria" id="secGaleria">
-        <div class="section-inner">
-          <div class="section-ornament" aria-hidden="true">
-            &#10022; &#10022; &#10022;
-          </div>
-          <h2 class="section-title reveal-up">Las Crónicas Ilustradas</h2>
-          <p class="section-subtitle reveal-up">Retratos de nuestra aventura</p>
+      <!-- Virtual -->
+      <section class="section section-virtual">
+        <h2 class="reveal-up">Para quienes se unan desde tierras lejanas</h2>
+        <p class="reveal-up">
+          Se abrirá un portal de transmisión en vivo para acompañar el ritual a
+          la distancia.
+        </p>
+        <a href="#" class="yt-link-button reveal-up">Ver transmisión ▶</a>
+        <p class="reveal-up">
+          Aunque los caminos no nos permitan coincidir físicamente, sabemos que
+          estarán con nosotros en pensamiento y corazón.
+        </p>
+      </section>
 
-          <div class="gallery-grid">
-            <div class="gallery-item gallery-item--large reveal-up">
-              <div class="gallery-placeholder">
-                <div class="placeholder-frame"></div>
-                <span class="placeholder-label">Retrato de los héroes</span>
-              </div>
+      <div class="ornament" aria-hidden="true">
+        <div class="ornament-line"></div>
+        <span>&#10022;</span>
+        <div class="ornament-line"></div>
+      </div>
+
+      <!-- COFRE — QR de contribuciones -->
+      <section class="section section-cofre">
+        <p class="cofre-intro reveal-up">
+          Como nuestro equipaje ya es muy grande y el viaje es largo, si deseáis
+          aportar a esta nueva aventura, recibiremos con gratitud cualquier
+          contribución metálica que puedan realizar.
+        </p>
+        <p class="cofre-intro reveal-up">Podrán hacerlo por estos medios...</p>
+
+        <div class="cofre-wrapper reveal-up">
+          <img src="img/chest.png" alt="Cofre del tesoro" class="cofre-img" />
+          <div class="cofre-qr-overlay">
+            <div class="cofre-qr-item">
+              <span class="cofre-qr-label">Yape</span>
+              <img src="img/qr_yape.jpeg" alt="QR Yape" class="cofre-qr-img" />
             </div>
-            <div class="gallery-item reveal-up">
-              <div class="gallery-placeholder">
-                <div class="placeholder-frame"></div>
-                <span class="placeholder-label">El primer encuentro</span>
-              </div>
+            <div class="cofre-qr-item">
+              <span class="cofre-qr-label">Plin</span>
+              <img src="img/qr_plin.jpeg" alt="QR Plin" class="cofre-qr-img" />
             </div>
-            <div class="gallery-item reveal-up">
-              <div class="gallery-placeholder">
-                <div class="placeholder-frame"></div>
-                <span class="placeholder-label">La aventura comienza</span>
-              </div>
-            </div>
-            <div class="gallery-item reveal-up">
-              <div class="gallery-placeholder">
-                <div class="placeholder-frame"></div>
-                <span class="placeholder-label">Tierras lejanas</span>
-              </div>
-            </div>
-            <div class="gallery-item reveal-up">
-              <div class="gallery-placeholder">
-                <div class="placeholder-frame"></div>
-                <span class="placeholder-label">El anillo hallado</span>
-              </div>
-            </div>
-            <div class="gallery-item gallery-item--wide reveal-up">
-              <div class="gallery-placeholder">
-                <div class="placeholder-frame"></div>
-                <span class="placeholder-label">La compañía reunida</span>
-              </div>
+            <div class="cofre-qr-item">
+              <span class="cofre-qr-label">Binance</span>
+              <img
+                src="img/qr_binance.jpeg"
+                alt="QR Binance"
+                class="cofre-qr-img"
+              />
             </div>
           </div>
         </div>
       </section>
 
       <footer class="site-footer">
-        <div class="footer-ornament" aria-hidden="true">
-          <div class="footer-line"></div>
+        <div class="ornament" aria-hidden="true">
+          <div class="ornament-line"></div>
           <span>&#10022;</span>
-          <div class="footer-line"></div>
+          <div class="ornament-line"></div>
         </div>
         <p class="footer-text">
-          <em>[NOMBRE_1] &amp; [NOMBRE_2] — [FECHA]</em>
+          <em>Jorge Torres &amp; Sharon Rodriguez</em>
         </p>
         <p class="footer-subtext">Pergamino forjado con amor y magia antigua</p>
       </footer>

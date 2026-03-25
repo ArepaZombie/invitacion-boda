@@ -8,6 +8,35 @@ gsap.registerPlugin(ScrollTrigger);
 history.scrollRestoration = "manual";
 window.scrollTo(0, 0);
 
+// ── Cuenta regresiva ──────────────────────────────────────────
+(function () {
+  // 4 de Julio 2026, 3:30 PM hora de Lima (UTC-5)
+  const target = new Date("2026-07-04T15:30:00-05:00").getTime();
+  const els = {
+    days:  document.getElementById("cd-days"),
+    hours: document.getElementById("cd-hours"),
+    mins:  document.getElementById("cd-mins"),
+    secs:  document.getElementById("cd-secs"),
+  };
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      els.days.textContent = els.hours.textContent = els.mins.textContent = els.secs.textContent = "00";
+      return;
+    }
+    els.days.textContent  = pad(Math.floor(diff / 86400000));
+    els.hours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    els.mins.textContent  = pad(Math.floor((diff % 3600000)  / 60000));
+    els.secs.textContent  = pad(Math.floor((diff % 60000)    / 1000));
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+
 // ── Query params ──────────────────────────────────────────────
 const params = new URLSearchParams(window.location.search);
 const modo = params.get("modo");
@@ -180,14 +209,9 @@ function openBook() {
       // Distancia desde el top del stage al top de la escena
       const distToTop = stageRect.top - sceneRect.top;
 
-      // Fondo de la escena: transición suave al parchment-dk
-      bookScene.style.backgroundImage = "none";
+      // Fondo: fade-out del gradiente, el parchment-lt debajo aparece suavemente
       bookScene.classList.add("is-open");
-      gsap.fromTo(
-        bookScene,
-        { backgroundColor: "#0d0804" },
-        { backgroundColor: "#fdf6e8", duration: 1.5, ease: "power2.inOut" },
-      );
+      gsap.to(document.getElementById("sceneGradient"), { opacity: 0, duration: 1.2, ease: "power2.inOut" });
 
       gsap.to(bookStage, {
         y: -distToTop,
@@ -207,8 +231,10 @@ function openBook() {
       scrollCta.classList.add("is-visible");
       mainContent.classList.add("is-visible");
       gsap.fromTo(mainContent, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" });
+      initScrollAnimations();
       setTimeout(() => {
         document.documentElement.classList.add("scroll-enabled");
+        ScrollTrigger.refresh();
       }, 500);
     },
     null,
@@ -410,8 +436,4 @@ function initScrollAnimations() {
   });
 }
 
-// Las animaciones de scroll se inician directamente — el main content
-// siempre está en el DOM y es visible.
-document.addEventListener("DOMContentLoaded", () => {
-  initScrollAnimations();
-});
+
