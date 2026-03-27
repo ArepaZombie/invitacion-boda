@@ -1,0 +1,172 @@
+/* ============================================================
+   PRUEBA — overrides experimentales sobre style.css
+   ============================================================ */
+
+/* ── Transición de entrada al tablón — parchment arriba, transparente abajo ── */
+.scene-transition {
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-parchment-lt) 0%,
+    transparent 100%
+  );
+
+  margin-bottom: -5rem;
+  /* z-index: 1; */
+  position: relative;
+}
+
+/* ── Sección invitación: tablón de madera ── */
+.section-invitacion {
+  background: url("img/wood.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  min-height: 125vh;
+}
+
+/* El cartel se queda fijo mientras la madera pasa por detrás */
+.inv-inner {
+  position: sticky;
+  top: 8vh;
+  margin: 8vh 0;
+  /* Aspecto de papel pegado al tablón */
+  rotate: -1.2deg;
+  box-shadow:
+    0 2px 0 #c8a96e,
+    /* borde inferior dorado (doblez) */ 2px 6px 18px rgba(0, 0, 0, 0.55),
+    6px 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Transición narrativa ── */
+.narracion-transicion {
+  position: relative;
+  z-index: 2;
+  margin-top: -15vh;
+  min-height: 30vh;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-parchment) 40%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 5vh;
+  pointer-events: none;
+}
+
+.narracion-transicion--simple {
+  margin-top: 0;
+  background: none;
+  min-height: 10vh;
+  align-items: center;
+  padding: 3vh 0;
+}
+
+.narracion-texto {
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 2.2vw, 0.95rem);
+  color: var(--color-ink-soft);
+  text-align: justify;
+  line-height: 1.75;
+  max-width: 420px;
+  padding: 0 2rem;
+  pointer-events: auto;
+
+  background-image:
+    radial-gradient(
+      ellipse 80% 40% at 70% 30%,
+      rgba(201, 146, 42, 0.06) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      transparent 0px,
+      transparent 27px,
+      rgba(90, 62, 40, 0.06) 27px,
+      rgba(90, 62, 40, 0.06) 28px
+    );
+}
+
+/* ── Reloj de arena + contador ── */
+.countdown-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.section-countdown .countdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.5rem;
+}
+
+.hourglass-wrap {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hourglass-svg {
+  width: 120px;
+  height: 145px;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.45));
+}
+
+.hg-bar {
+  fill: var(--color-ink);
+}
+
+.hg-glass {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+  stroke-linejoin: miter;
+}
+
+.hg-sand {
+  fill: #c8a96e;
+}
+
+.hg-sand--top {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0.55);
+}
+
+.hg-sand--bot {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0.3);
+}
+
+.hg-stream {
+  fill: #c8a96e;
+  animation: hg-stream-pulse 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes hg-stream-pulse {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Tachuela en el centro superior */
+.inv-inner::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #6d6b6b, #000000);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
