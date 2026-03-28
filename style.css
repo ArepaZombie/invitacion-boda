@@ -733,22 +733,20 @@ body {
   background-color: #0d091a;
   background-image: none;
   overflow: hidden;
-  padding: 4rem 1.5rem 3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0;
 }
 
-/* Marco decorativo de espadas */
-.swords-frame {
+/* Marco decorativo de espadas — pseudo elemento para que cubra la máscara */
+.section-invitacion::before {
+  content: "";
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  background-image: url("img/swords_background.png");
+  background-size: cover;
+  background-position: center;
   mix-blend-mode: screen;
   pointer-events: none;
-  z-index: 0;
+  z-index: 7;
 }
 
 /* Siluetas en las esquinas */
@@ -770,13 +768,59 @@ body {
   transform: scaleX(-1);
 }
 
-/* Wrapper tarjeta + sobre */
-.inv-card-wrap {
+/* Escena del sobre — apilado centrado */
+.inv-scene {
   position: relative;
-  z-index: 3;
+  height: 100vh;
   width: 100%;
-  max-width: 320px;
-  margin: 0 auto;
+  overflow: hidden;
+}
+
+.inv-card-wrap,
+.inv-sobre {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.inv-sobre-up {
+  position: absolute;
+  left: 50%;
+}
+
+/* Carta: detrás del sobre, mismo ancho */
+.inv-card-wrap {
+  z-index: 3;
+  width: min(80vw, 290px);
+}
+
+/* Solapa superior: debajo de la carta */
+.inv-sobre-up {
+  z-index: 2;
+  width: min(80vw, 290px);
+  pointer-events: none;
+}
+
+/* Cuerpo del sobre: encima de la carta y del mask */
+.inv-sobre {
+  z-index: 5;
+  width: min(80vw, 290px);
+  filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.7));
+  pointer-events: none;
+}
+
+/* Máscara debajo del sobre: tapa la carta hasta que suba */
+.inv-mask {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 12vh);
+  transform: translateX(-50%);
+  width: min(80vw, 290px);
+  height: 60vh;
+  background-color: #0d091a;
+  z-index: 4;
+  pointer-events: none;
 }
 
 .inv-inner {

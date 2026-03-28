@@ -13,24 +13,30 @@ window.scrollTo(0, 0);
   // 4 de Julio 2026, 3:30 PM hora de Lima (UTC-5)
   const target = new Date("2026-07-04T15:30:00-05:00").getTime();
   const els = {
-    days:  document.getElementById("cd-days"),
+    days: document.getElementById("cd-days"),
     hours: document.getElementById("cd-hours"),
-    mins:  document.getElementById("cd-mins"),
-    secs:  document.getElementById("cd-secs"),
+    mins: document.getElementById("cd-mins"),
+    secs: document.getElementById("cd-secs"),
   };
 
-  function pad(n) { return String(n).padStart(2, "0"); }
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
 
   function tick() {
     const diff = target - Date.now();
     if (diff <= 0) {
-      els.days.textContent = els.hours.textContent = els.mins.textContent = els.secs.textContent = "00";
+      els.days.textContent =
+        els.hours.textContent =
+        els.mins.textContent =
+        els.secs.textContent =
+          "00";
       return;
     }
-    els.days.textContent  = pad(Math.floor(diff / 86400000));
+    els.days.textContent = pad(Math.floor(diff / 86400000));
     els.hours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
-    els.mins.textContent  = pad(Math.floor((diff % 3600000)  / 60000));
-    els.secs.textContent  = pad(Math.floor((diff % 60000)    / 1000));
+    els.mins.textContent = pad(Math.floor((diff % 3600000) / 60000));
+    els.secs.textContent = pad(Math.floor((diff % 60000) / 1000));
   }
 
   tick();
@@ -211,7 +217,11 @@ function openBook() {
 
       // Fondo: fade-out del gradiente, el parchment-lt debajo aparece suavemente
       bookScene.classList.add("is-open");
-      gsap.to(document.getElementById("sceneGradient"), { opacity: 0, duration: 1.2, ease: "power2.inOut" });
+      gsap.to(document.getElementById("sceneGradient"), {
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.inOut",
+      });
 
       gsap.to(bookStage, {
         y: -distToTop,
@@ -230,7 +240,11 @@ function openBook() {
     () => {
       scrollCta.classList.add("is-visible");
       mainContent.classList.add("is-visible");
-      gsap.fromTo(mainContent, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" });
+      gsap.fromTo(
+        mainContent,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6, ease: "power2.out" },
+      );
       initScrollAnimations();
       setTimeout(() => {
         document.documentElement.classList.add("scroll-enabled");
@@ -434,6 +448,54 @@ function initScrollAnimations() {
       });
     });
   });
+
+  // ── Sobre → carta reveal ───────────────────────────────────
+  const sobreEl = document.querySelector(".inv-sobre");
+  const sobreUpEl = document.querySelector(".inv-sobre-up");
+  const cardWrapEl = document.querySelector(".inv-card-wrap");
+  const maskEl = document.querySelector(".inv-mask");
+
+  if (sobreEl && cardWrapEl) {
+    // Posiciona sobre_up justo encima del sobre según su altura real
+    function positionSobreUp() {
+      const scene = document.querySelector(".inv-scene");
+      const sobreTop = scene.offsetHeight / 2 - sobreEl.offsetHeight / 2;
+      sobreUpEl.style.top = sobreTop - sobreUpEl.offsetHeight + "px";
+      // GSAP maneja el transform — solo setear top aquí
+      gsap.set(sobreUpEl, {
+        xPercent: -50,
+        rotateX: 180,
+        transformOrigin: "50% 100%",
+        transformPerspective: 600,
+      });
+    }
+    sobreEl.complete
+      ? positionSobreUp()
+      : sobreEl.addEventListener("load", positionSobreUp);
+
+    gsap.set(cardWrapEl, { y: "80vh" });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#secInvitacion",
+        pin: true,
+        scrub: 1.5,
+        start: "top top",
+        end: "+=250%",
+      },
+    });
+
+    // 1. Flap se abre (gira)
+    tl.to(sobreUpEl, { rotateX: 0, ease: "none", duration: 0.12 }, 0)
+      // 2. Todo baja + carta sube
+      .to(sobreEl, { y: "120vh", ease: "none", duration: 0.4 }, 0.3)
+      .to(sobreUpEl, { y: "120vh", ease: "none", duration: 0.4 }, 0.3)
+      .to(maskEl, { y: "120vh", ease: "none", duration: 0.4 }, 0.3)
+      .to(cardWrapEl, { y: "5vh", ease: "none", duration: 0.4 }, 0.3);
+
+    // Click: avanza la animación completa
+    document.getElementById("secInvitacion").addEventListener("click", () => {
+      gsap.to(tl, { progress: 1, duration: 0.8, ease: "power2.inOut", overwrite: true });
+    });
+  }
 }
-
-
