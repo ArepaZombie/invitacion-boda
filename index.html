@@ -50,33 +50,56 @@
 
         <!-- Página interior — revelada al abrir -->
         <div class="book-interior" id="bookInterior">
-          <div class="page-corner tl"></div>
-          <div class="page-corner tr"></div>
-          <div class="page-corner bl"></div>
-          <div class="page-corner br"></div>
+          <div class="interior-glow-top" aria-hidden="true"></div>
+          <div class="interior-rays" aria-hidden="true"></div>
+          <div class="interior-sparks" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
           <div class="interior-body">
-            <p class="interior-ornament">&#10022;</p>
-            <div class="interior-rule"></div>
             <p class="interior-text">
-              <span class="drop-cap">É</span>rase una vez un mago y una guerrera
-              que después de superar tiempos inciertos, distancias inmensas y
-              dragones sin nombre se preparan para una nueva aventura en tierras
-              lejanas e inexploradas: empezar una nueva travesía juntos.
+              Érase una vez un mago y una guerrera que después de superar
+              tiempos inciertos, distancias inmensas y dragones sin nombre se
+              preparan para una nueva aventura en tierras lejanas e
+              inexploradas: empezar una nueva travesía juntos.
             </p>
+
+            <div class="interior-heroes" aria-hidden="true">
+              <img
+                src="img/warrior.png"
+                alt=""
+                class="interior-hero interior-hero--warrior"
+              />
+              <div class="interior-glow"></div>
+              <img
+                src="img/wizard.png"
+                alt=""
+                class="interior-hero interior-hero--wizard"
+              />
+            </div>
+
             <p class="interior-text">
               Pero incluso los más grandes viajeros requieren un último acto de
-              magia.
-            </p>
-            <p class="interior-text">
-              Para prepararse para esta aventura, nuestros héroes enviaron
-              mensajes a sus seres queridos, para que les ayuden a crear un
-              hechizo
+              magia. Para prepararse para esta aventura, nuestros héroes
+              enviaron mensajes a sus seres queridos, para que les ayuden a
+              crear un hechizo.
             </p>
             <p class="interior-text">
               Un hechizo antiguo, no creado por ellos, sino por aquellos que han
               sido testigos de su historia...
             </p>
-            <div class="interior-rule"></div>
+
+            <img
+              src="img/lechuza.png"
+              alt=""
+              class="interior-owl"
+              aria-hidden="true"
+            />
+
             <button
               class="scroll-cta"
               id="scrollCta"
@@ -139,43 +162,55 @@
 
       <!-- INVITACIÓN -->
       <section class="section section-invitacion" id="secInvitacion">
-        <div class="inv-inner">
-          <p class="inv-pre reveal-up">Los aventureros:</p>
+        <img
+          src="img/swords_background.png"
+          alt=""
+          class="swords-frame"
+          aria-hidden="true"
+        />
+        <div class="inv-card-wrap">
+          <div class="inv-inner">
+            <p class="inv-pre reveal-up">Los aventureros:</p>
 
-          <h2 class="inv-nombres reveal-up">
-            Jorge<br />
-            <span class="titulos">"El Mago"</span><br />
-            <span class="seal-amp">&amp;</span><br />
-            Sharon<br />
-            <span class="titulos">"La Guerrera"</span>
-          </h2>
+            <h2 class="inv-nombres reveal-up">
+              Jorge<br />
+              <span class="titulos">"El Mago"</span><br />
+              <span class="seal-amp">&amp;</span><br />
+              Sharon<br />
+              <span class="titulos">"La Guerrera"</span>
+            </h2>
 
-          <p class="inv-cuerpo reveal-up">
-            Convocan a un círculo íntimo de almas queridas y elegidas para
-            presenciar el instante en que iniciará la unión de estos grandes
-            héroes.
-          </p>
+            <p class="inv-cuerpo reveal-up">
+              Convocan a un círculo íntimo de almas queridas y elegidas para
+              presenciar el instante en que iniciará la unión de estos grandes
+              héroes.
+            </p>
 
-          <div class="inv-rule" aria-hidden="true"></div>
+            <div class="inv-rule" aria-hidden="true"></div>
 
-          <p class="inv-cuando-pre reveal-up">
-            Nos reuniremos cuando la Luna del Ciervo empiece a menguar
-          </p>
+            <p class="inv-cuando-pre reveal-up">
+              Nos reuniremos cuando la Luna del Ciervo empiece a menguar
+            </p>
 
-          <p class="inv-fecha reveal-up">4 de Julio 2026</p>
+            <p class="inv-fecha reveal-up">4 de Julio 2026</p>
 
-          <p class="inv-hora-pre reveal-up">
-            Tres horas después de que el sol esté en su punto más alto
-          </p>
+            <p class="inv-hora-pre reveal-up">
+              Tres horas después de que el sol esté en su punto más alto
+            </p>
 
-          <p class="inv-hora reveal-up">3:30 PM</p>
+            <p class="inv-hora reveal-up">3:30 PM</p>
 
-          <div class="inv-rule" aria-hidden="true"></div>
+            <div class="inv-rule" aria-hidden="true"></div>
 
-          <p class="inv-cierre reveal-up">
-            Su presencia, sea en cuerpo o a través de un portal, será esencial
-            para la pareja.
-          </p>
+            <p class="inv-cierre reveal-up">
+              Su presencia, sea en cuerpo o a través de un portal, será esencial
+              para la pareja.
+            </p>
+          </div>
+
+          <div class="inv-envelope-flap">
+            <img src="img/seal-golden.png" alt="" class="inv-seal-img" />
+          </div>
         </div>
       </section>
 
