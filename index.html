@@ -36,6 +36,12 @@
     <div class="noise-overlay" aria-hidden="true"></div>
     <div class="dust-container" id="dustContainer" aria-hidden="true"></div>
 
+    <!-- Partículas fijas siempre visibles en la parte superior -->
+    <div class="interior-sparks sparks-fixed" aria-hidden="true">
+      <span></span><span></span><span></span> <span></span><span></span
+      ><span></span>
+    </div>
+
     <!-- ============================================================
        PORTADA — LIBRO 3D
        ============================================================ -->
@@ -52,14 +58,6 @@
         <div class="book-interior" id="bookInterior">
           <div class="interior-glow-top" aria-hidden="true"></div>
           <div class="interior-rays" aria-hidden="true"></div>
-          <div class="interior-sparks" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
           <div class="interior-body">
             <p class="interior-text">
               Érase una vez un mago y una guerrera que después de superar
@@ -199,21 +197,33 @@
               <div class="inv-rule" aria-hidden="true"></div>
 
               <p class="inv-cierre">
-                Su presencia, sea en cuerpo o a través de un portal, será esencial
-                para la pareja.
+                Su presencia será esencial para la pareja.
               </p>
-            </div>
 
-            <div class="inv-envelope-flap">
-              <img src="img/seal-golden.png" alt="" class="inv-seal-img" />
+              <img
+                src="img/seal-purple.png"
+                alt=""
+                class="inv-seal"
+                aria-hidden="true"
+              />
             </div>
           </div>
 
           <!-- Solapa superior — debajo de la carta en z-index -->
-          <img src="img/sobre_up.png" alt="" class="inv-sobre-up" aria-hidden="true" />
+          <img
+            src="img/sobre_up.png"
+            alt=""
+            class="inv-sobre-up"
+            aria-hidden="true"
+          />
 
           <!-- Cuerpo del sobre — encima de todo -->
-          <img src="img/sobre.png" alt="" class="inv-sobre" aria-hidden="true" />
+          <img
+            src="img/sobre.png"
+            alt=""
+            class="inv-sobre"
+            aria-hidden="true"
+          />
 
           <!-- Máscara: oculta la carta hasta que sube por encima del sobre -->
           <div class="inv-mask" aria-hidden="true"></div>

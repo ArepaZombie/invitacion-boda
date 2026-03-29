@@ -245,9 +245,9 @@ function openBook() {
         { opacity: 0 },
         { opacity: 1, duration: 0.6, ease: "power2.out" },
       );
-      initScrollAnimations();
       setTimeout(() => {
         document.documentElement.classList.add("scroll-enabled");
+        initScrollAnimations();
         ScrollTrigger.refresh();
       }, 500);
     },
@@ -473,7 +473,7 @@ function initScrollAnimations() {
       ? positionSobreUp()
       : sobreEl.addEventListener("load", positionSobreUp);
 
-    gsap.set(cardWrapEl, { y: "80vh" });
+    gsap.set(cardWrapEl, { y: "50vh" });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -481,21 +481,27 @@ function initScrollAnimations() {
         pin: true,
         scrub: 1.5,
         start: "top top",
-        end: "+=250%",
+        end: "+=200%",
       },
     });
 
     // 1. Flap se abre (gira)
+    const downValue = "32vh";
     tl.to(sobreUpEl, { rotateX: 0, ease: "none", duration: 0.12 }, 0)
       // 2. Todo baja + carta sube
-      .to(sobreEl, { y: "120vh", ease: "none", duration: 0.4 }, 0.3)
-      .to(sobreUpEl, { y: "120vh", ease: "none", duration: 0.4 }, 0.3)
-      .to(maskEl, { y: "120vh", ease: "none", duration: 0.4 }, 0.3)
-      .to(cardWrapEl, { y: "5vh", ease: "none", duration: 0.4 }, 0.3);
+      .to(sobreEl, { y: downValue, ease: "none", duration: 0.3 }, 0.2)
+      .to(sobreUpEl, { y: downValue, ease: "none", duration: 0.3 }, 0.2)
+      .to(maskEl, { y: downValue, ease: "none", duration: 0.3 }, 0.2)
+      .to(cardWrapEl, { y: "-10vh", ease: "none", duration: 0.2 }, 0);
 
     // Click: avanza la animación completa
     document.getElementById("secInvitacion").addEventListener("click", () => {
-      gsap.to(tl, { progress: 1, duration: 0.8, ease: "power2.inOut", overwrite: true });
+      gsap.to(tl, {
+        progress: 1,
+        duration: 0.8,
+        ease: "power2.inOut",
+        overwrite: true,
+      });
     });
   }
 }
