@@ -36,12 +36,6 @@
     <div class="noise-overlay" aria-hidden="true"></div>
     <div class="dust-container" id="dustContainer" aria-hidden="true"></div>
 
-    <!-- Partículas fijas siempre visibles en la parte superior -->
-    <div class="interior-sparks sparks-fixed" aria-hidden="true">
-      <span></span><span></span><span></span> <span></span><span></span
-      ><span></span>
-    </div>
-
     <!-- ============================================================
        PORTADA — LIBRO 3D
        ============================================================ -->
@@ -56,6 +50,9 @@
 
         <!-- Página interior — revelada al abrir -->
         <div class="book-interior" id="bookInterior">
+          <div class="interior-sparks" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
           <div class="interior-glow-top" aria-hidden="true"></div>
           <div class="interior-rays" aria-hidden="true"></div>
           <div class="interior-body">
@@ -230,52 +227,42 @@
         </div>
       </section>
 
-      <div class="ornament" aria-hidden="true">
-        <div class="ornament-line"></div>
-        <span>&#10022;</span>
-        <div class="ornament-line"></div>
-      </div>
-
-      <!-- CONTADOR -->
-      <section class="section section-countdown">
-        <h2>Faltan...</h2>
-        <div class="countdown reveal-up" id="countdown">
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-days">--</span>
-            <span class="countdown-label">días</span>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-hours">--</span>
-            <span class="countdown-label">horas</span>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-mins">--</span>
-            <span class="countdown-label">minutos</span>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="cd-secs">--</span>
-            <span class="countdown-label">segundos</span>
-          </div>
-        </div>
-      </section>
-
-      <div class="ornament" aria-hidden="true">
-        <div class="ornament-line"></div>
-        <span>&#10022;</span>
-        <div class="ornament-line"></div>
-      </div>
-
       <!-- /// SECCIONES INDEPENDIENTES /// -->
+      <img
+        src="img/big_lechuza.png"
+        class="big-lechuza"
+        alt=""
+        aria-hidden="true"
+      />
 
       <!-- Presencial -->
       <section class="section section-presencial">
-        <h2 class="reveal-up">
-          Para quienes nos acompañarán <br />
-          en cuerpo y alma
-        </h2>
+        <div class="presencial-stars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+        <div class="direccion">
+          <img
+            src="img/piscis.png"
+            class="presencial-piscis"
+            alt=""
+            aria-hidden="true"
+          />
+          <h2>DIRECCIÓN</h2>
+          <p>Barranca 153, Callao</p>
+
+          <a
+            href="https://maps.app.goo.gl/MzWZwDkYL3eCaU5e7"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span> Haz click en la estrella y esta te guiará </span>
+            <span class="guide-star">&#10022;</span>
+          </a>
+        </div>
+
         <p class="reveal-up">
           En honor a la naturaleza del evento y para preservar su atmósfera, la
           velada estará dedicada <strong>exclusivamente a adultos</strong>.
@@ -345,6 +332,32 @@
                 class="cofre-qr-img"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTADOR -->
+      <section class="section section-countdown">
+        <h2>Faltan...</h2>
+        <div class="countdown reveal-up" id="countdown">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-days">--</span>
+            <span class="countdown-label">días</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-hours">--</span>
+            <span class="countdown-label">horas</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-mins">--</span>
+            <span class="countdown-label">minutos</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-secs">--</span>
+            <span class="countdown-label">segundos</span>
           </div>
         </div>
       </section>
