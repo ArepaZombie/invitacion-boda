@@ -236,18 +236,25 @@
         aria-hidden="true"
       />
 
-      <!-- Presencial -->
+      <!-- Bloque unificado: presencial + cofre + final -->
+      <div class="sky-earth-wrap">
       <section class="section section-presencial">
         <div class="presencial-stars" aria-hidden="true">
-          <!-- Zona alta: 0-30% — densa -->
+          <!-- Zona alta: 0-30% — densa (28) -->
           <span></span><span></span><span></span><span></span><span></span>
           <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span>
-          <!-- Zona media: 30-60% — moderada -->
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
           <span></span><span></span><span></span><span></span><span></span>
           <span></span><span></span><span></span>
-          <!-- Zona baja: 60-100% — escasa -->
-          <span></span><span></span><span></span><span></span>
+          <!-- Zona media: 30-60% — moderada (16) -->
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span>
+          <!-- Zona baja: 60-100% — escasa (8) -->
+          <span></span><span></span><span></span><span></span> <span></span
+          ><span></span><span></span><span></span>
         </div>
         <div class="direccion">
           <img
@@ -276,7 +283,10 @@
         <div class="vestimenta">
           <h2>Código de vestimenta</h2>
           <p>
-            <i>Formal, de invierno. Recomendamos esta paleta de colores:</i>
+            <i>
+              Formal, de invierno. <br />
+              Recomendamos esta paleta de colores:
+            </i>
           </p>
 
           <div class="palneta-colores">
@@ -302,29 +312,60 @@
           </div>
 
           <p>
-            Tambien los animamos a traer, si desean, algún accesorio extra con
-            tematica de fantasía, medieval o de cuento de hadas para potenciar
-            el estilo del evento.
+            <i>
+              Los animamos a traer algún accesorio extra con temática de
+              fantasía medieval o cuento de hadas.
+            </i>
           </p>
+
+          <div class="vestimenta-aviso">
+            <p>
+              En honor a la naturaleza de la noche y para preservar su
+              atmósfera, les pedimos encaresidamente:
+            </p>
+            <h3>Evitar llevar niños pequeños</h3>
+          </div>
         </div>
 
         <div class="whatsapp">
-          <p class="nube">NUBE UHHH NUBEEE</p>
-          <p>
-            Para compartir momentos y fotos del evento, dejamos un link a un
-            grupo. Los invitamos a unirse dado que será muy importante para uno
-            de los eventos de la ceremonia.
-          </p>
+          <svg
+            class="whatsapp-arco"
+            viewBox="0 0 400 220"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="Para compartir momentos y fotos del evento, dejamos un link a un grupo de WhatsApp."
+          >
+            <defs>
+              <path id="arco1" d="M 20,200 A 180,180 0 0,1 380,200" />
+              <path id="arco2" d="M 42,208 A 158,158 0 0,1 358,208" />
+            </defs>
+            <text>
+              <textPath href="#arco1" startOffset="50%" text-anchor="middle">
+                Para compartir momentos y fotos de la boda
+              </textPath>
+            </text>
+            <text>
+              <textPath href="#arco2" startOffset="50%" text-anchor="middle">
+                dejamos un link a un grupo.
+              </textPath>
+            </text>
+          </svg>
 
           <a
             class="wpp-group-button"
             href="https://chat.whatsapp.com/JX7kyVME7lC5xRNwYoBEdm"
-            >Unirse al grupo</a
+            target="_blank"
+            rel="noopener noreferrer"
           >
-        </div>
-      </section>
+            <img src="img/whatsapp-balloon.png" alt="Unirse al grupo de WhatsApp" class="wpp-balloon" />
+          </a>
 
-      <p class="nube">NUBE UHHH NUBEEE</p>
+          <p>
+            Los invitamos a unirse dado que será muy importante para uno de los
+            eventos de la ceremonia.
+          </p>
+        </div>
+        <img src="img/atardecer-effect.png" alt="" class="fondo-atardecer" />
+      </section>
 
       <!-- Virtual -->
       <!-- <section class="section section-virtual">
@@ -351,6 +392,8 @@
           </p>
         </div>
 
+        </div><!-- /.sky-earth-wrap -->
+        
         <div class="soil">
           <p>Podrán hacerlo por estos medios</p>
           <div class="qr-container">
@@ -369,16 +412,18 @@
           </div>
         </div>
       </section>
+    
 
-      <section class="section final">
-        <p>
-          ... Y así, nuestro héroes celebraron con sus seres queridos su amor y
-          se prepararon con mucha emoción y la protección de ellos para las
-          aventuras que les esperan. <br />
-          ¿El fin?
-        </p>
-        <img src="img/aventureros-final.png" alt="" class="aventureros-final" />
-      </section>
+    <section class="section final">
+      <p>
+        ... Y así, nuestro héroes celebraron con sus seres queridos su amor y
+        se prepararon con mucha emoción y la protección de ellos para las
+        aventuras que les esperan. <br />
+        ¿El fin?
+      </p>
+      <img src="img/aventureros-final.png" alt="" class="aventureros-final" />
+    </section>
+
       <img src="img/libro-abierto.png" alt="" class="libro-abierto" />
 
       <!-- CONTADOR -->
