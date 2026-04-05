@@ -92,7 +92,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 12vh;
   background-color: var(--color-night);
   overflow: clip;
   cursor: pointer;
@@ -216,7 +215,12 @@ body {
   width: 100%;
   height: 100%;
   transform: translateZ(-1px);
-  background-color: var(--color-night);
+  background: radial-gradient(
+    ellipse 80% 60% at center,
+    #2c334d 0%,
+    #221527 50%,
+    var(--color-night) 80%
+  );
   overflow: hidden;
 }
 
@@ -686,11 +690,20 @@ body {
   display: block;
 }
 
-.section {
+#post-inv {
+  display: none;
+}
+
+#post-inv.is-visible {
+  display: block;
+}
+
+.section,
+.epilogo {
   padding: 0.5rem 1.5rem;
 }
 
-/* Transición entre libro y contenido — oculta, la sección maneja su propio fondo */
+/* Transición entre book-interior y section-invitacion */
 .scene-transition {
   height: 0;
 }
@@ -701,7 +714,6 @@ body {
 .section-invitacion {
   position: relative;
   background-color: var(--color-night);
-  background-image: none;
   overflow: hidden;
   padding: 0;
 }
@@ -989,12 +1001,18 @@ body {
 }
 
 .final {
-  background: none;
+  background: radial-gradient(
+    ellipse 80% 60% at center,
+    #3b2c4d 0%,
+    #221527 80%,
+    #19100b 100%
+  );
   color: var(--color-parchment);
   text-align: center;
   font-family: var(--font-body);
   font-size: clamp(0.88rem, 2.5vw, 1rem);
   line-height: 1.7;
+  margin-top: -1px;
 }
 
 .aventureros-final {
@@ -1039,6 +1057,44 @@ body {
   align-items: flex-end;
   width: 100%;
   padding: 1rem;
+}
+
+.sub-terra {
+  position: relative;
+}
+
+.raices {
+  display: block;
+  width: 100%;
+}
+
+.corazon {
+  position: absolute;
+  width: 13%;
+  left: 52%;
+  bottom: 0%;
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  10% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  30% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .soil {
@@ -1109,7 +1165,6 @@ body {
 
   .direccion {
     display: flex;
-    margin: 1.5rem 0;
     gap: 15px;
     flex-direction: column;
     padding: 2rem 0;
@@ -1138,6 +1193,7 @@ body {
   .vestimenta,
   .whatsapp {
     margin-top: 1.5rem;
+    padding: 0 1.5rem;
     p {
       font-family: var(--font-body);
       font-size: 1.2rem;
@@ -1848,7 +1904,6 @@ body {
 
 .wpp-balloon {
   width: 60vw;
-  margin-top: -25vw;
   display: block;
   transform-origin: 50% 85%;
   animation:
@@ -1998,21 +2053,78 @@ body {
   display: none;
 }
 
-.vestimenta-aviso {
+.brujas {
   position: relative;
-  padding: 2rem 1rem;
-  margin-top: 1.5rem;
+  width: 100vw;
+  height: 32vw;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.vestimenta-aviso::before {
-  content: "";
+.brujas img {
+  left: 0;
   position: absolute;
-  inset: 0;
-  background: url("img/atardecer-effect.png") center / cover no-repeat;
-  opacity: 0.5;
-  z-index: 0;
-  width: 100vw;
-  margin-left: -1.5rem;
+  pointer-events: none;
+}
+
+/* Primer plano — 1 bob por cruce */
+.witch1 {
+  width: 20%;
+  bottom: 5%;
+  animation:
+    witch-fly-x 6s linear 0s infinite,
+    witch-bob 6s ease-in-out 0s infinite;
+}
+/* 2 bobs por cruce */
+.witch2 {
+  width: 12%;
+  bottom: 22%;
+  animation:
+    witch-fly-x 12s linear -3s infinite,
+    witch-bob 6.5s ease-in-out 0s infinite;
+}
+/* 3 bobs por cruce */
+.witch4 {
+  width: 11%;
+  bottom: 38%;
+  animation:
+    witch-fly-x 18s linear -8s infinite,
+    witch-bob 5.3s ease-in-out 0s infinite;
+}
+/* Fondo — 4 bobs por cruce (más lenta) */
+.witch3 {
+  width: 6%;
+  bottom: 55%;
+  animation:
+    witch-fly-x 22s linear -15s infinite,
+    witch-bob 4.5s ease-in-out 0s infinite;
+}
+
+/* Movimiento horizontal compartido */
+@keyframes witch-fly-x {
+  from {
+    transform: translateX(110vw);
+  }
+  to {
+    transform: translateX(-25vw);
+  }
+}
+
+/* Oscilación vertical suave — ease-in-out elimina el "rebote" */
+@keyframes witch-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -3vw;
+  }
+}
+
+.vestimenta-aviso {
+  position: relative;
+  padding: 0 1rem;
+  margin-top: 1.5rem;
 }
 
 .whatsapp-arco {
@@ -2030,7 +2142,7 @@ body {
 
 .fondo-atardecer {
   width: 100vw;
-  margin: -3.5rem;
+  margin: -25vw;
 }
 
 .vestimenta-aviso p,

@@ -225,7 +225,7 @@ function openBook() {
 
       gsap.to(bookStage, {
         y: -distToTop,
-        scale: Math.min(scaleX, scaleY),
+        scale: scaleY,
         transformOrigin: "top center",
         duration: 0.5,
         ease: "power2.inOut",
@@ -461,7 +461,6 @@ function initScrollAnimations() {
       const scene = document.querySelector(".inv-scene");
       const sobreTop = scene.offsetHeight / 2 - sobreEl.offsetHeight / 2;
       sobreUpEl.style.top = sobreTop - sobreUpEl.offsetHeight + "px";
-      // GSAP maneja el transform — solo setear top aquí
       gsap.set(sobreUpEl, {
         xPercent: -50,
         rotateX: 180,
@@ -473,35 +472,57 @@ function initScrollAnimations() {
       ? positionSobreUp()
       : sobreEl.addEventListener("load", positionSobreUp);
 
+    // Carta oculta debajo del sobre hasta el click
     gsap.set(cardWrapEl, { y: "50vh" });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#secInvitacion",
-        pin: true,
-        scrub: 1.5,
-        start: "top top",
-        end: "+=200%",
-      },
-    });
-
-    // 1. Flap se abre (gira)
     const downValue = "32vh";
-    tl.to(sobreUpEl, { rotateX: 0, ease: "none", duration: 0.12 }, 0)
-      // 2. Todo baja + carta sube
-      .to(sobreEl, { y: downValue, ease: "none", duration: 0.3 }, 0.2)
-      .to(sobreUpEl, { y: downValue, ease: "none", duration: 0.3 }, 0.2)
-      .to(maskEl, { y: downValue, ease: "none", duration: 0.3 }, 0.2)
-      .to(cardWrapEl, { y: "-10vh", ease: "none", duration: 0.2 }, 0);
+    const tl = gsap.timeline({ paused: true });
 
-    // Click: avanza la animación completa
-    document.getElementById("secInvitacion").addEventListener("click", () => {
-      gsap.to(tl, {
-        progress: 1,
-        duration: 0.8,
-        ease: "power2.inOut",
-        overwrite: true,
-      });
-    });
+    // 1. Solapa se abre
+    tl.to(sobreUpEl, { rotateX: 0, ease: "power2.inOut", duration: 0.25 }, 0)
+      // 2. Sobre + solapa + máscara bajan, carta sube
+      .to(sobreEl, { y: downValue, ease: "power2.inOut", duration: 0.75 }, 0.25)
+      .to(
+        sobreUpEl,
+        { y: downValue, ease: "power2.inOut", duration: 0.75 },
+        0.25,
+      )
+      .to(maskEl, { y: downValue, ease: "power2.inOut", duration: 0.75 }, 0.25)
+      .to(cardWrapEl, { y: "-10vh", ease: "power2.out", duration: 0.9 }, 0.1);
+
+    let opened = false;
+    const secInv = document.getElementById("secInvitacion");
+
+    function openInvitacion() {
+      if (opened) return;
+      opened = true;
+      tl.play();
+      setTimeout(() => {
+        const postInv = document.getElementById("post-inv");
+        postInv.classList.add("is-visible");
+        postInv.removeAttribute("aria-hidden");
+        ScrollTrigger.refresh();
+      }, 1500);
+    }
+
+    secInv.addEventListener("click", openInvitacion);
+
+    // Touch: dispara igual que click pero sin esperar los 300ms del browser
+    let touchStartY = 0;
+    secInv.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true },
+    );
+    secInv.addEventListener(
+      "touchend",
+      (e) => {
+        const dy = Math.abs(touchStartY - e.changedTouches[0].clientY);
+        if (dy < 15) openInvitacion(); // tap, no swipe
+      },
+      { passive: true },
+    );
   }
 }
