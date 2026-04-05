@@ -210,7 +210,6 @@ function openBook() {
     () => {
       const sceneRect = bookScene.getBoundingClientRect();
       const stageRect = bookStage.getBoundingClientRect();
-      const scaleX = sceneRect.width / stageRect.width;
       const scaleY = sceneRect.height / stageRect.height;
       // Distancia desde el top del stage al top de la escena
       const distToTop = stageRect.top - sceneRect.top;
@@ -490,12 +489,29 @@ function initScrollAnimations() {
       .to(maskEl, { y: downValue, ease: "power2.inOut", duration: 0.75 }, 0.25)
       .to(cardWrapEl, { y: "-10vh", ease: "power2.out", duration: 0.9 }, 0.1);
 
+    // Shake de atención — igual que el libro
+    function shakeSobre() {
+      gsap.to([sobreEl, sobreUpEl], {
+        rotateZ: 1.5,
+        duration: 0.15,
+        repeat: 3,
+        yoyo: true,
+        ease: "power1.inOut",
+        onComplete: () => gsap.set([sobreEl, sobreUpEl], { rotateZ: 0 }),
+      });
+    }
+    const shakeTimeout = setTimeout(shakeSobre, 2000);
+    const shakeInterval = setInterval(shakeSobre, 5000);
+
     let opened = false;
     const secInv = document.getElementById("secInvitacion");
 
     function openInvitacion() {
       if (opened) return;
       opened = true;
+      clearTimeout(shakeTimeout);
+      clearInterval(shakeInterval);
+      gsap.killTweensOf(sobreEl, "rotateZ");
       tl.play();
       setTimeout(() => {
         const postInv = document.getElementById("post-inv");

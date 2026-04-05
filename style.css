@@ -798,7 +798,7 @@ body {
   left: 50%;
   top: calc(50% + 12vh);
   transform: translateX(-50%);
-  width: min(80vw, 290px);
+  width: 100%;
   height: 60vh;
   background-color: var(--color-night);
   z-index: 4;
@@ -983,20 +983,21 @@ body {
 .sky-earth-wrap {
   background: linear-gradient(
     to bottom,
-    #020202 5%,
-    #12141c 15%,
-    #4c2752 20%,
-    #5a245a 45%,
-    #821c6e 55%,
-    #983182 60%,
-    #a23e8d 65%,
-    #b44a84 70%,
+    #020202 0%,
+    #020202 10%,
+    #12141c 20%,
+    #4c2752 32%,
+    #5a245a 41%,
+    #821c6e 47%,
+    #983182 50%,
+    #a23e8d 56%,
+    #b44a84 59%,
+    #ba4d80 63%,
     #bb4d7f 75%,
-    #ee5082 85%,
-    #ee695a 87%,
-    #fc7250 88%,
-    #fc7722 95%,
-    #fc7722 100%
+    #fc7250 80%,
+    #fc7539 85%,
+    #fca928 91%,
+    #fcbb22 95%
   );
 }
 
