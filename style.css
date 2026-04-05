@@ -24,6 +24,14 @@
   --book-w: min(82vw, 360px);
   --book-h: min(82vh, 520px);
   --spine-w: 22px;
+
+  /* Escala tipográfica */
+  --fs-xs: 0.72rem;
+  --fs-sm: clamp(0.8rem, 2vw, 0.88rem);
+  --fs-base: clamp(0.88rem, 2.5vw, 1rem);
+  --fs-lg: clamp(1.1rem, 4vw, 1.5rem);
+  --fs-xl: clamp(1.4rem, 5vw, 2rem);
+  --fs-2xl: clamp(1.6rem, 5vw, 2.2rem);
 }
 
 *,
@@ -52,7 +60,7 @@ body {
 }
 
 p {
-  font-size: clamp(0.8rem, 2vw, 0.85rem);
+  font-size: var(--fs-sm);
 }
 
 /* ============================================================
@@ -195,7 +203,7 @@ p {
   border-bottom: 1px solid rgba(201, 146, 42, 0.3);
 }
 
-.spine-text {
+.book-spine span {
   font-family: var(--font-heading);
   font-size: 0.38rem;
   letter-spacing: 0.18em;
@@ -411,24 +419,7 @@ p {
   z-index: 1;
 }
 
-.interior-ornament {
-  font-size: 1.1rem;
-  color: var(--color-gold);
-  line-height: 1;
-}
-
-.interior-rule {
-  width: 50%;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-gold-pale),
-    transparent
-  );
-}
-
-.interior-text {
+.interior-body p {
   font-family: var(--font-body);
   color: #cdb4bc;
   line-height: 1.2;
@@ -472,11 +463,6 @@ p {
   width: clamp(20px, 6vw, 64px);
   display: block;
   margin: 10px auto;
-}
-
-/* Letra capitular — no usada en el nuevo diseño */
-.drop-cap {
-  display: none;
 }
 
 /* ============================================================
@@ -734,25 +720,6 @@ p {
   z-index: 7;
 }
 
-/* Siluetas en las esquinas */
-.inv-deco {
-  position: absolute;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.85;
-}
-.inv-deco--tl {
-  top: 0;
-  left: -8px;
-  width: 85px;
-}
-.inv-deco--tr {
-  top: 0;
-  right: -8px;
-  width: 70px;
-  transform: scaleX(-1);
-}
-
 /* Escena del sobre — apilado centrado */
 .inv-scene {
   position: relative;
@@ -810,7 +777,6 @@ p {
 
 .inv-inner {
   width: 100%;
-  margin: 0 auto;
   padding: 2.5rem 1.8rem 2rem;
   text-align: center;
   display: flex;
@@ -818,28 +784,6 @@ p {
   align-items: center;
   gap: 1rem;
   background: #f0edf8;
-  background-image: none;
-  border: none;
-}
-
-/* Solapa del sobre */
-.inv-envelope-flap {
-  width: 100%;
-  height: 80px;
-  background: #d4ba78;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.inv-seal-img {
-  width: 62px;
-  height: 62px;
-  object-fit: contain;
-  position: absolute;
-  top: -30px;
-  z-index: 4;
 }
 
 .inv-seal {
@@ -903,7 +847,7 @@ p {
 
 .inv-cuerpo {
   font-family: var(--font-body);
-  font-size: clamp(0.88rem, 2.5vw, 1rem);
+  font-size: var(--fs-base);
   color: var(--color-ink-soft);
   line-height: 1.3;
 }
@@ -931,7 +875,7 @@ p {
 }
 
 .countdown-num {
-  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-size: var(--fs-2xl);
 }
 
 .countdown-label {
@@ -944,7 +888,7 @@ p {
 }
 
 .countdown-sep {
-  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-size: var(--fs-xl);
   opacity: 0.5;
   padding-top: 0.05em;
 }
@@ -970,7 +914,7 @@ p {
 .inv-fecha,
 .inv-hora {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-size: var(--fs-xl);
   color: var(--color-ink);
   letter-spacing: 0.1em;
   font-weight: bold;
@@ -1013,18 +957,14 @@ p {
   color: var(--color-parchment);
   text-align: center;
   font-family: var(--font-body);
-  font-size: clamp(0.88rem, 2.5vw, 1rem);
+  font-size: var(--fs-base);
   line-height: 1.7;
   margin-top: -1px;
 }
 
-.aventureros-final {
-  width: 80vw;
-}
-
-.novios-final {
+.epilogo img {
   width: min(72vw, 320px);
-  padding: 12px 12px 36px;
+  padding: 0.75rem 0.75rem 2.25rem;
   background: #f5f2ec;
   box-shadow:
     3px 4px 14px rgba(0, 0, 0, 0.5),
@@ -1032,12 +972,6 @@ p {
   rotate: -3deg;
   display: block;
   margin: 1.5rem auto;
-}
-
-.libro-abierto {
-  width: 100vw;
-  margin-top: -50%;
-  z-index: 2;
 }
 
 /* ============================================================
@@ -1051,28 +985,6 @@ p {
   margin-top: 30px;
   background: none;
   padding: 0 1.5rem;
-}
-
-.cofre-intro {
-  font-family: var(--font-body);
-  font-size: clamp(0.8rem, 2.5vw, 1.05rem);
-  color: var(--color-ink-soft);
-  max-width: 400px;
-}
-
-.cofre-img {
-  width: 100%;
-  display: block;
-}
-
-.qr-container {
-  background: #040505;
-  display: flex;
-  gap: 0.6rem;
-  justify-content: center;
-  align-items: flex-end;
-  width: 100%;
-  padding: 1rem;
 }
 
 .sub-terra {
@@ -1431,12 +1343,12 @@ p {
   }
 }
 
-.raices {
+.sub-terra img:first-of-type {
   display: block;
   width: 100%;
 }
 
-.corazon {
+.sub-terra img:last-of-type {
   position: absolute;
   width: 13%;
   left: 52%;
@@ -1465,63 +1377,15 @@ p {
   }
 }
 
-.soil {
-  width: 100%;
-  background: #040505;
-  font-family: var(--font-heading);
-  font-size: clamp(0.8rem, 1.5vw, 0.6rem);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: var(--color-gold);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-}
-
-.qr-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.qr-img {
-  width: clamp(60px, 18vw, 90px);
-  height: clamp(60px, 18vw, 90px);
-  object-fit: contain;
-  border-radius: 3px;
-  background: white;
-}
-
-.arbol-wrap {
-  position: relative;
-  width: 100%;
-  line-height: 0;
-}
-
 .silueta-arbol {
   width: 100%;
   display: block;
 }
 
-.arbol-texto {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 55%;
-  text-align: center;
-  font-family: var(--font-body);
-  font-size: clamp(0.7rem, 2.2vw, 1rem);
-  color: #fff;
-  line-height: 1.6;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-}
-
 /* ============================================================
-   SECCIONES PRESENCIAL / VIRTUAL
+   SECCIÓN PRESENCIAL
    ============================================================ */
-.section-presencial,
-.section-virtual {
+.section-presencial {
   text-align: center;
 }
 
@@ -1545,7 +1409,7 @@ p {
       color: white;
       display: flex;
       flex-direction: column;
-      font-size: 12px;
+      font-size: 0.75rem;
       line-height: 1.3;
       .guide-star {
         font-size: 2.5rem;
@@ -2165,15 +2029,13 @@ p {
   margin-bottom: 0.4rem;
 }
 
-/* Dirección: texto del h2 de reveal-up (resto de la sección) */
 .section-presencial h2.reveal-up {
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-size: var(--fs-lg);
   color: var(--color-gold-pale);
   margin-bottom: 1.2rem;
 }
 
-/* Dirección: address */
 .section-presencial > p:not([class]) {
   font-family: var(--font-heading);
   font-size: clamp(1rem, 3.5vw, 1.3rem);
@@ -2184,10 +2046,9 @@ p {
   margin: 0 auto 1.2rem;
 }
 
-/* Dirección: párrafos con reveal-up */
 .section-presencial p.reveal-up {
   font-family: var(--font-body);
-  font-size: clamp(0.88rem, 2.5vw, 1rem);
+  font-size: var(--fs-base);
   color: rgba(245, 234, 214, 0.75);
   max-width: 480px;
   margin: 0 auto 0.8rem;
@@ -2230,29 +2091,19 @@ p {
   filter: drop-shadow(0 0 16px rgba(255, 235, 150, 0.9));
 }
 
-/* Virtual */
-.section-virtual h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.1rem, 4vw, 1.5rem);
-  color: var(--color-brown);
-  margin-bottom: 1.2rem;
-}
-
-.section-virtual p,
 .section-countdown h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-size: var(--fs-lg);
   color: var(--color-gold-pale);
   max-width: 480px;
   margin: 0 auto 0.8rem;
   line-height: 1.7;
 }
 
-.wpp-group-button,
-.yt-link-button {
+.wpp-group-button {
   display: inline-block;
   font-family: var(--font-heading);
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
@@ -2351,9 +2202,6 @@ p {
   }
 }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
 .seal-amp {
   font-family: var(--font-body);
   font-style: italic;
@@ -2367,7 +2215,7 @@ p {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--color-gold-pale);
-  margin-top: 15px;
+  margin-top: 1rem;
 }
 
 /* ============================================================
@@ -2543,7 +2391,7 @@ footer {
   font-size: 0.65rem;
 }
 
-.ornament-line {
+.ornament div {
   flex: 1;
   height: 1px;
   background: linear-gradient(
@@ -2655,19 +2503,6 @@ footer {
   margin-top: 1.5rem;
 }
 
-.whatsapp-arco {
-  width: 100%;
-  max-width: 420px;
-  display: block;
-  margin: 0 auto;
-}
-
-.whatsapp-arco text {
-  font-family: var(--font-body);
-  font-size: 1.7rem;
-  fill: var(--color-parchment);
-}
-
 .fondo-atardecer {
   width: 100vw;
   margin: -25vw;
@@ -2679,9 +2514,7 @@ footer {
   z-index: 1;
 }
 
-.nube {
-  display: block;
-  width: 100vw;
-  height: 45vw;
-  background: url("img/atardecer-effect.png") center / cover no-repeat;
+.section-cofre p,
+.epilogo p {
+  font-size: medium;
 }
