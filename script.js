@@ -474,21 +474,6 @@ function initScrollAnimations() {
     // Carta oculta debajo del sobre hasta el click
     gsap.set(cardWrapEl, { y: "50vh" });
 
-    const downValue = "32vh";
-    const tl = gsap.timeline({ paused: true });
-
-    // 1. Solapa se abre
-    tl.to(sobreUpEl, { rotateX: 0, ease: "power2.inOut", duration: 0.25 }, 0)
-      // 2. Sobre + solapa + máscara bajan, carta sube
-      .to(sobreEl, { y: downValue, ease: "power2.inOut", duration: 0.75 }, 0.25)
-      .to(
-        sobreUpEl,
-        { y: downValue, ease: "power2.inOut", duration: 0.75 },
-        0.25,
-      )
-      .to(maskEl, { y: downValue, ease: "power2.inOut", duration: 0.75 }, 0.25)
-      .to(cardWrapEl, { y: "-10vh", ease: "power2.out", duration: 0.9 }, 0.1);
-
     // Shake de atención — igual que el libro
     function shakeSobre() {
       gsap.to([sobreEl, sobreUpEl], {
@@ -511,8 +496,34 @@ function initScrollAnimations() {
       opened = true;
       clearTimeout(shakeTimeout);
       clearInterval(shakeInterval);
-      gsap.killTweensOf(sobreEl, "rotateZ");
-      tl.play();
+      gsap.killTweensOf([sobreEl, sobreUpEl], "rotateZ");
+
+      // Calculamos posiciones reales en px al momento de abrir
+      const sceneEl = document.querySelector(".inv-scene");
+      const sceneRect = sceneEl.getBoundingClientRect();
+      const sobreRect = sobreEl.getBoundingClientRect();
+
+      // El sobre baja lo suficiente para salir de la escena
+      const dropPx = sobreRect.height * 1.8;
+
+      // La carta sube hasta que su tope quede en el borde superior del viewport.
+      // Usamos el mínimo para que si la escena ya está scrolleada hacia arriba
+      // (naturalCenterVP pequeño), la carta igualmente suba respecto a su posición natural.
+      const naturalCenterVP = sceneRect.top + sceneRect.height / 2;
+      const cardHeight = cardWrapEl.offsetHeight;
+      const idealCenterVP = 16 + cardHeight / 2;        // tope de la carta a 16px del viewport
+      const targetCenterVP = Math.min(idealCenterVP, naturalCenterVP - 20);
+      const cardTargetY = targetCenterVP - naturalCenterVP;
+
+      gsap.timeline()
+        // 1. Solapa se abre
+        .to(sobreUpEl, { rotateX: 0, ease: "power2.inOut", duration: 0.25 }, 0)
+        // 2. Sobre + solapa + máscara bajan, carta sube
+        .to(sobreEl,   { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
+        .to(sobreUpEl, { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
+        .to(maskEl,    { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
+        .to(cardWrapEl,{ y: cardTargetY, ease: "power2.out", duration: 0.9 }, 0.1);
+
       setTimeout(() => {
         const postInv = document.getElementById("post-inv");
         postInv.classList.add("is-visible");
