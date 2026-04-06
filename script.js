@@ -8,6 +8,23 @@ gsap.registerPlugin(ScrollTrigger);
 history.scrollRestoration = "manual";
 window.scrollTo(0, 0);
 
+// ── Loader ────────────────────────────────────────────────────
+(function () {
+  const loader = document.getElementById("loader");
+  const bar = document.getElementById("loaderBar");
+  if (!loader || !bar) return;
+
+  gsap.to(bar, {
+    width: "100%",
+    duration: 1,
+    ease: "power1.inOut",
+    onComplete() {
+      loader.classList.add("fade-out");
+      setTimeout(() => loader.remove(), 650);
+    },
+  });
+})();
+
 // ── Cuenta regresiva ──────────────────────────────────────────
 (function () {
   // 4 de Julio 2026, 3:30 PM hora de Lima (UTC-5)
@@ -504,11 +521,12 @@ function initScrollAnimations() {
       const sobreRect = sobreEl.getBoundingClientRect();
 
       // El sobre baja lo suficiente para salir de la escena
-      const dropPx = sobreRect.height * 1.8;
+      const dropPx = sobreRect.height * 1.4;
 
+      const vw = window.innerWidth * 0.18; // 20vw en px
       const naturalCenterVP = sceneRect.top + sceneRect.height / 2;
       const cardTargetY =
-        sceneRect.top + 14 + sobreUpEl.offsetHeight - naturalCenterVP;
+        sceneRect.top - vw + sobreUpEl.offsetHeight - naturalCenterVP;
 
       gsap
         .timeline()
@@ -586,7 +604,8 @@ if (corazonEl) {
       const tx = Math.cos(angle) * speed;
       const ty = -(30 + Math.random() * 60); // siempre sube primero
 
-      gsap.fromTo(el,
+      gsap.fromTo(
+        el,
         { x: 0, y: 0, opacity: 1, scale: 1 },
         {
           x: tx,
@@ -596,7 +615,7 @@ if (corazonEl) {
           duration: 0.4 + Math.random() * 0.3,
           ease: "power2.out",
           onComplete: () => el.remove(),
-        }
+        },
       );
     }
   });

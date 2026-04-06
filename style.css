@@ -64,6 +64,53 @@ p {
 }
 
 /* ============================================================
+   LOADER
+   ============================================================ */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--color-night);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  &.fade-out {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+  }
+
+  .loader-seal {
+    width: clamp(80px, 22vw, 140px);
+    opacity: 0.9;
+    animation: loader-pulse 1.8s ease-in-out infinite;
+  }
+
+  .loader-bar-wrap {
+    width: clamp(120px, 40vw, 220px);
+    height: 3px;
+    background: rgba(201, 146, 42, 0.2);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .loader-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-gold-lt));
+    border-radius: 99px;
+  }
+}
+
+@keyframes loader-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+/* ============================================================
    OVERLAYS FIJOS
    ============================================================ */
 .noise-overlay,
