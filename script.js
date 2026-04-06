@@ -506,23 +506,27 @@ function initScrollAnimations() {
       // El sobre baja lo suficiente para salir de la escena
       const dropPx = sobreRect.height * 1.8;
 
-      // La carta sube hasta que su tope quede en el borde superior del viewport.
-      // Usamos el mínimo para que si la escena ya está scrolleada hacia arriba
-      // (naturalCenterVP pequeño), la carta igualmente suba respecto a su posición natural.
       const naturalCenterVP = sceneRect.top + sceneRect.height / 2;
-      const cardHeight = cardWrapEl.offsetHeight;
-      const idealCenterVP = 16 + cardHeight / 2;        // tope de la carta a 16px del viewport
-      const targetCenterVP = Math.min(idealCenterVP, naturalCenterVP - 20);
-      const cardTargetY = targetCenterVP - naturalCenterVP;
+      const cardTargetY =
+        sceneRect.top + 14 + sobreUpEl.offsetHeight - naturalCenterVP;
 
-      gsap.timeline()
+      gsap
+        .timeline()
         // 1. Solapa se abre
         .to(sobreUpEl, { rotateX: 0, ease: "power2.inOut", duration: 0.25 }, 0)
         // 2. Sobre + solapa + máscara bajan, carta sube
-        .to(sobreEl,   { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
-        .to(sobreUpEl, { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
-        .to(maskEl,    { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
-        .to(cardWrapEl,{ y: cardTargetY, ease: "power2.out", duration: 0.9 }, 0.1);
+        .to(sobreEl, { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
+        .to(
+          sobreUpEl,
+          { y: dropPx, ease: "power2.inOut", duration: 0.75 },
+          0.25,
+        )
+        .to(maskEl, { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
+        .to(
+          cardWrapEl,
+          { y: cardTargetY, ease: "power2.out", duration: 0.9 },
+          0.1,
+        );
 
       setTimeout(() => {
         const postInv = document.getElementById("post-inv");
@@ -552,4 +556,48 @@ function initScrollAnimations() {
       { passive: true },
     );
   }
+}
+
+// ── Partículas al click en el corazón ────────────────────────
+const corazonEl = document.querySelector(".sub-terra img:last-of-type");
+if (corazonEl) {
+  corazonEl.addEventListener("click", () => {
+    const count = 26;
+    const colors = ["#edbc06", "#f0c830", "#f2c420", "#e8a800", "#fff8c0"];
+    const rect = corazonEl.getBoundingClientRect();
+    const originX = rect.left + rect.width / 2;
+    const originY = rect.top + rect.height / 2 + window.scrollY;
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("span");
+      const size = 4 + Math.random() * 8;
+      el.style.cssText = `
+        position: absolute;
+        width: ${size}px; height: ${size}px;
+        border-radius: 50%;
+        background: radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%);
+        left: ${originX}px; top: ${originY}px;
+        pointer-events: none; z-index: 99;
+      `;
+      document.body.appendChild(el);
+
+      const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.8;
+      const speed = 40 + Math.random() * 60;
+      const tx = Math.cos(angle) * speed;
+      const ty = -(30 + Math.random() * 60); // siempre sube primero
+
+      gsap.fromTo(el,
+        { x: 0, y: 0, opacity: 1, scale: 1 },
+        {
+          x: tx,
+          y: ty + (50 + Math.random() * 60), // sube y luego cae
+          opacity: 0,
+          scale: 0.3,
+          duration: 0.4 + Math.random() * 0.3,
+          ease: "power2.out",
+          onComplete: () => el.remove(),
+        }
+      );
+    }
+  });
 }
