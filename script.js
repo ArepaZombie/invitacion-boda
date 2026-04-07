@@ -472,11 +472,18 @@ function initScrollAnimations() {
   const maskEl = document.querySelector(".inv-mask");
 
   if (sobreEl && cardWrapEl) {
-    // Posiciona sobre_up justo encima del sobre según su altura real
+    // Inicializa ambos elementos con GSAP para transform consistente
     function positionSobreUp() {
-      const scene = document.querySelector(".inv-scene");
-      const sobreTop = scene.offsetHeight / 2 - sobreEl.offsetHeight / 2;
-      sobreUpEl.style.top = sobreTop - sobreUpEl.offsetHeight + "px";
+      // Sobre centrado — GSAP toma el transform para que y sea predecible
+      gsap.set(sobreEl, { xPercent: -50, yPercent: -50 });
+      // Solapa posicionada justo encima del sobre
+      const sceneRect = document
+        .querySelector(".inv-scene")
+        .getBoundingClientRect();
+      const sobreRect = sobreEl.getBoundingClientRect();
+      const topRelToScene =
+        sobreRect.top - sceneRect.top - sobreUpEl.offsetHeight;
+      sobreUpEl.style.top = topRelToScene + "px";
       gsap.set(sobreUpEl, {
         xPercent: -50,
         rotateX: 180,
@@ -484,14 +491,15 @@ function initScrollAnimations() {
         transformPerspective: 600,
       });
     }
-    sobreEl.complete
-      ? positionSobreUp()
-      : sobreEl.addEventListener("load", positionSobreUp);
+    const imgReady = sobreEl.complete
+      ? Promise.resolve()
+      : new Promise((r) => sobreEl.addEventListener("load", r));
+    Promise.all([imgReady, document.fonts.ready]).then(positionSobreUp);
 
-    // Carta oculta debajo del sobre hasta el click
-    gsap.set(cardWrapEl, { y: "50vh" });
+    // Carta: GSAP toma el centering para que y sea predecible en todos los browsers
+    gsap.set(cardWrapEl, { xPercent: -50, yPercent: -50, y: "50vh" });
 
-    // Shake de atención — igual que el libro
+    // Shake de atención
     function shakeSobre() {
       gsap.to([sobreEl, sobreUpEl], {
         rotateZ: 1.5,
@@ -513,6 +521,12 @@ function initScrollAnimations() {
       opened = true;
       clearTimeout(shakeTimeout);
       clearInterval(shakeInterval);
+
+      // Forzar reflow de post-inv ahora (sync, antes de la animación)
+      const postInv = document.getElementById("post-inv");
+      postInv.style.display = "block";
+      postInv.offsetHeight;
+      postInv.style.display = "";
       gsap.killTweensOf([sobreEl, sobreUpEl], "rotateZ");
 
       // Calculamos posiciones reales en px al momento de abrir
@@ -520,38 +534,47 @@ function initScrollAnimations() {
       const sceneRect = sceneEl.getBoundingClientRect();
       const sobreRect = sobreEl.getBoundingClientRect();
 
-      // El sobre baja lo suficiente para salir de la escena
-      const dropPx = sobreRect.height * 1.4;
-
-      const vw = window.innerWidth * 0.18; // 20vw en px
-      const naturalCenterVP = sceneRect.top + sceneRect.height / 2;
+      // Mide la posición actual de la carta (ya tiene y: 50vh aplicado)
+      const cardRect = cardWrapEl.getBoundingClientRect();
       const cardTargetY =
-        sceneRect.top - vw + sobreUpEl.offsetHeight - naturalCenterVP;
+        sceneRect.top - cardRect.top + window.innerHeight * 0.6;
+
+      // El sobre baja hasta que su tope queda justo en el borde inferior de la carta
+      const cardH = cardWrapEl.offsetHeight;
+      const sobreH = sobreEl.offsetHeight;
+      const dropPx = Math.min(
+        cardTargetY + cardH / 2 - window.innerHeight * 0.05,
+        sceneRect.bottom - sobreRect.bottom,
+      );
 
       gsap
         .timeline()
         // 1. Solapa se abre
-        .to(sobreUpEl, { rotateX: 0, ease: "power2.inOut", duration: 0.25 }, 0)
-        // 2. Sobre + solapa + máscara bajan, carta sube
-        .to(sobreEl, { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
+        .to(sobreUpEl, { rotateX: 0, ease: "power2.inOut", duration: 0.3 }, 0)
+        // 2. Sobre + solapa bajan juntos (mismo dropPx, mismo ease)
+        .to(sobreEl, { y: dropPx, ease: "power3.inOut", duration: 0.9 }, 0.25)
+        .to(sobreUpEl, { y: dropPx, ease: "power3.inOut", duration: 0.9 }, 0.25)
         .to(
-          sobreUpEl,
-          { y: dropPx, ease: "power2.inOut", duration: 0.75 },
+          maskEl,
+          {
+            y: dropPx + window.innerHeight * 0.02,
+            ease: "power3.inOut",
+            duration: 0.9,
+          },
           0.25,
         )
-        .to(maskEl, { y: dropPx, ease: "power2.inOut", duration: 0.75 }, 0.25)
         .to(
           cardWrapEl,
-          { y: cardTargetY, ease: "power2.out", duration: 0.9 },
-          0.1,
+          { y: cardTargetY, ease: "power4.out", duration: 1.1 },
+          0.25,
         );
 
       setTimeout(() => {
         const postInv = document.getElementById("post-inv");
         postInv.classList.add("is-visible");
         postInv.removeAttribute("aria-hidden");
-        ScrollTrigger.refresh();
       }, 1500);
+      setTimeout(() => ScrollTrigger.refresh(), 2200);
     }
 
     secInv.addEventListener("click", openInvitacion);
