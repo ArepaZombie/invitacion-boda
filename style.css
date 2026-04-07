@@ -790,11 +790,8 @@ p {
   }
 
   /* Colores de texto dentro de la tarjeta — sobreescriben los defaults de .inv-* */
-  .inv-pre,
-  .inv-cuando-pre,
-  .inv-hora-pre,
-  .inv-cuerpo,
-  .inv-cierre {
+  .inv-note,
+  .inv-cuerpo {
     color: var(--color-purple);
   }
   .inv-nombres,
@@ -830,7 +827,6 @@ p {
   z-index: 3;
   width: min(80vw, 290px);
 }
-
 
 /* Wrapper del sobre: se posiciona y anima como unidad */
 /* Solapa: debajo de la carta */
@@ -881,29 +877,25 @@ p {
   height: 3rem;
 }
 
-.inv-pre,
-.inv-cuando-pre,
-.inv-hora-pre,
-.inv-cierre {
+.inv-note {
   font-family: var(--font-body);
   font-style: italic;
   color: var(--color-ink-soft);
-}
-
-.inv-pre {
   letter-spacing: 0.05em;
+  line-height: 1.2;
+  font-size: var(--fs-lg);
 }
 
 .inv-nombres {
-  font-family: var(--font-heading);
+  font-family: var(--fs-xl);
   font-size: clamp(1.5rem, 5vw, 2.2rem);
   color: var(--color-ink);
-  line-height: 0.5;
+  line-height: 0.6;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 
   .titulos {
-    font-size: clamp(0.5rem, 2.5vw, 1.2rem);
+    font-size: var(--fs-xs);
   }
 }
 
@@ -965,12 +957,6 @@ p {
     transparent
   );
   opacity: 0.35;
-}
-
-.inv-cuando-pre,
-.inv-hora-pre,
-.inv-cierre {
-  line-height: 1.2;
 }
 
 .inv-fecha,
