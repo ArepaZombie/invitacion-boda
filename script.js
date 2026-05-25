@@ -28,7 +28,7 @@ window.scrollTo(0, 0);
 // ── Cuenta regresiva ──────────────────────────────────────────
 (function () {
   // 4 de Julio 2026, 3:30 PM hora de Lima (UTC-5)
-  const target = new Date("2026-07-04T15:30:00-05:00").getTime();
+  const target = new Date("2026-07-04T16:00:00-05:00").getTime();
   const els = {
     days: document.getElementById("cd-days"),
     hours: document.getElementById("cd-hours"),
@@ -43,11 +43,12 @@ window.scrollTo(0, 0);
   function tick() {
     const diff = target - Date.now();
     if (diff <= 0) {
-      els.days.textContent =
-        els.hours.textContent =
-        els.mins.textContent =
-        els.secs.textContent =
-          "00";
+      document.getElementsByClassName("section-countdown")[0].style.display =
+        "none";
+      const expiredMsg = document.getElementById("cd-expired-msg");
+      const expiredLink = document.getElementById("cd-expired-link");
+      if (expiredMsg) expiredMsg.removeAttribute("hidden");
+      if (expiredLink) expiredLink.removeAttribute("hidden");
       return;
     }
     els.days.textContent = pad(Math.floor(diff / 86400000));

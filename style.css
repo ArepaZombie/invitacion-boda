@@ -922,14 +922,20 @@ p {
 }
 
 .countdown-num,
-.countdown-sep {
+.countdown-sep,
+#cd-expired-msg {
   font-family: var(--font-heading);
   color: var(--color-gold);
   line-height: 1;
 }
 
-.countdown-num {
+.countdown-num,
+#cd-expired-msg {
   font-size: var(--fs-2xl);
+}
+
+#cd-expired-msg {
+  margin: 10px;
 }
 
 .countdown-label {
